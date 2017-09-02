@@ -11,7 +11,7 @@
     $val=$_GET['tech_can_id'];
     include '../../core.class.php';
     $core = new CanCore();
-    $status = $core->rejectUser($val);
+    $status = $core->approveUser($val);
     if($status){
       echo '<script>alert("User Rejected");</script>';
       header('location: ../../dashboard.php' );

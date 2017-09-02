@@ -54,9 +54,9 @@
                         <td><?php echo $row['tech_can_gender']; ?></td>
                         <td><?php echo $row['tech_can_dor']; ?></td>
                         <td><a href='update_list.php?tech_can_id=<?php echo $b;?>'>View &nbsp;</a>
-                            <a href='update_list.php?tech_can_id=<?php echo $b;?>''>Edit &nbsp;</a>
+                            <a href='edit_details.php?tech_can_id=<?php echo $b;?>''>Edit &nbsp;</a>
                             <a href='users/hr/hr_reject.php?tech_can_id=<?php echo $b;?>''>Reject &nbsp;</a>
-                            <a href='users/hr/hr__approve.php?tech_can_id=<?php echo $b;?>''>Approve &nbsp;</a>
+                            <a href='users/hr/hr_approve.php?tech_can_id=<?php echo $b;?>''>Approve &nbsp;</a>
                         </td>
                       </tr>
                       <?php } ?>

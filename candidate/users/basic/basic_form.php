@@ -24,14 +24,14 @@
             <div class="form-group col-lg-4 exp-row">
               <div class="input-group ">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                <input type="text" name="user[name]" id="name" class="form-control" placeholder="Enter Name"/>
+                <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name"/>
               </div>
             </div>
             
             <div class="form-group col-lg-4 exp-row">
               <div class="input-group ">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                <input type="email" name="user[email]" id="email" class="form-control" placeholder="Enter Your Email" onkeyup="checkemail();" maxlength="40" required />
+                <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email" onkeyup="checkemail();" maxlength="40" required />
               </div>
               <small id="email_status" class="text-danger"></small>
               <!-- <span class="text-danger"><?php echo $emailError; ?></span> -->

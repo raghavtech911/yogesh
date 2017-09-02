@@ -5,11 +5,11 @@
         
     $('#basic_form').bootstrapValidator({
         // To use feedback icons, ensure that you use Bootstrap v3.1.0 or later
-        // feedbackIcons: {
-        //     valid: 'glyphicon glyphicon-ok',
-        //     invalid: 'glyphicon glyphicon-remove',
-        //     validating: 'glyphicon glyphicon-refresh'
-        // },
+        feedbackIcons: {
+            valid: 'glyphicon glyphicon-ok',
+            invalid: 'glyphicon glyphicon-remove',
+            validating: 'glyphicon glyphicon-refresh'
+        },
 
         fields: {
             name: {
@@ -113,79 +113,7 @@
                     }
                 }
             },
-            
-            // company_name_row1: {
-            //     validators: {
-            //         regexp: {
-            //             regexp: /[A-Za-z0-9\s.'-]+$/,
-            //             message: "Alphabetical characters, hyphens and spaces"
-            //         }
-            //     }
-            // },
-            // designation_row1: {
-            //     validators: {
-            //         regexp: {
-            //             regexp: /[A-Za-z0-9\s.'-]+$/,
-            //             message: "Alphabetical characters, hyphens and spaces"
-            //         }
-            //     }
-            // },
-            // total_exp_row1: {
-            //     validators: {
-            //         numeric: {
-            //         message: 'The value is not a valid number'
-            //         }
-            //     }
-            // },
-
-            // company_name_row2: {
-            //     validators: {
-            //         regexp: {
-            //             regexp: /[A-Za-z0-9\s.'-]+$/,
-            //             message: "Alphabetical characters, hyphens and spaces"
-            //         }
-            //     }
-            // },
-            // designation_row2: {
-            //     validators: {
-            //         regexp: {
-            //             regexp: /[A-Za-z0-9\s.'-]+$/,
-            //             message: "Alphabetical characters, hyphens and spaces"
-            //         }
-            //     }
-            // },
-            // total_exp_row2: {
-            //     validators: {
-            //         numeric: {
-            //         message: 'The value is not a valid number'
-            //         }
-            //     }
-            // },
-
-            // company_name_row3: {
-            //     validators: {
-            //         regexp: {
-            //             regexp: /[A-Za-z0-9\s.'-]+$/,
-            //             message: "Alphabetical characters, hyphens and spaces"
-            //         }
-            //     }
-            // },
-            // designation_row3: {
-            //     validators: {
-            //         regexp: {
-            //             regexp: /[A-Za-z0-9\s.'-]+$/,
-            //             message: "Alphabetical characters, hyphens and spaces"
-            //         }
-            //     }
-            // },
-            // total_exp_row3: {
-            //     validators: {
-            //         numeric: {
-            //         message: 'The value is not a valid number'
-            //         }
-            //     }
-            // },
-
+           
             tech_can_currentctc: {
                 validators: {
                     numeric: {
@@ -249,26 +177,26 @@
     });
 });
 
- function checkemail()
-{
- var email=document.getElementById( "email" ).value;
+//  function checkemail()
+// {
+//  var email=document.getElementById( "email" ).value;
   
- if(email)
- {
-  $.ajax({
-  type: 'post',
-  url: 'logic.php',
-  data: {
-   email:email,
-  },
-  success: function (response) {
-   $( '#email_status' ).html(response);
-  }
-  });
- }
- else
- {
-  $( '#email_status' ).html("");
-  return false;
- }
-}
+//  if(email)
+//  {
+//   $.ajax({
+//   type: 'post',
+//   url: 'logic.php',
+//   data: {
+//    email:email,
+//   },
+//   success: function (response) {
+//    $( '#email_status' ).html(response);
+//   }
+//   });
+//  }
+//  else
+//  {
+//   $( '#email_status' ).html("");
+//   return false;
+//  }
+// }
