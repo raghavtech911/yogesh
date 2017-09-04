@@ -31,7 +31,7 @@
         if(isset($_POST['user'])){
           $status = $core->updateUserData($_POST['user'],$val);
           if($status){
-            echo "<script>alert('Data Updated'); </script>";
+            echo "<script>alert('Data Updated Successfully!'); document.location='dashboard.php'</script>";
           }else{
             echo '<script>alert("Updated Failed");</script>';
           
@@ -404,7 +404,7 @@
                       <label for="skills">skills</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="user[meta][tech_can_skills]" class="form-control" placeholder="skills" maxlength="50" value="<?php echo $row['tech_can_skills']; ?>" required />
+                      <input type="text" name="user[meta][tech_can_skills]" class="form-control" placeholder="skills" maxlength="50" value="<?php echo $row['tech_can_skills']; ?>" required pattern="[a-zA-Z, -_]{1,}" title="Alphabets only!"/>
                       </div>
                     </span>
                   </div>
@@ -419,7 +419,7 @@
                       <label for="Current CTC">Current CTC</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" placeholder="Current CTC" maxlength="50" value="<?php echo $row['tech_can_currentctc'] ; ?>" required />
+                      <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" placeholder="Current CTC" maxlength="50" value="<?php echo $row['tech_can_currentctc'] ; ?>" required pattern="[0-9]{1,}" title="Digits only!" />
                       </div>
                     </span>
                   </div>
@@ -434,7 +434,7 @@
                       <label for="Expected CTC">Expected CTC</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" placeholder="Expected CTC" maxlength="50" value="<?php echo $row['tech_can_expectedctc'] ; ?>" required />
+                      <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" placeholder="Expected CTC" maxlength="50" value="<?php echo $row['tech_can_expectedctc'] ; ?>" required pattern="[0-9]{1,}" title="Digits only!" />
                       </div>
                     </span>
                   </div>

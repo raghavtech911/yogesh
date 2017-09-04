@@ -39,9 +39,7 @@
         if(isset($_POST['user'])){
         $status = $core->technicalComment($_POST['user'],$val);
           if($status){
-            echo '<script type="text/javascript">';
-            echo 'alert("Comment updated successfully!");'; 
-            echo '</script>';
+            echo "<script>alert('Comment updated successfully!'); document.location='dashboard.php'</script>";
           }else{
             echo '<script>alert("Failed to update!");</script>';
           }

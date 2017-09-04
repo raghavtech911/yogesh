@@ -56,9 +56,9 @@
 			$marital_status = $data['marital_status'];
 			$date = $data['date'];
 			//$technical_assign = $data['technical_assign'];
-			$technical_assign = 3;
-			$technical_comment = 'No comments';
-			$hr_comment = 'No comments';
+			$technical_assign = '';
+			$technical_comment = '';
+			$hr_comment = '';
 			$can_status = 0;
 			$meta_data = $data['meta'];
 			$query = "INSERT INTO tech_candidates (tech_can_fullname, tech_can_email, tech_can_mobile, tech_can_gender, tech_can_qualification, tech_can_appliedposition, tech_can_maritalstatus, tech_can_dor, tech_can_technical_assign, tech_can_technical_comment, tech_can_hr_comment, tech_can_status) VALUES ('$name','$email','$mobile','$gender','$qualification','$appliedposition','$marital_status','$date','$technical_assign','$technical_comment','$hr_comment','$can_status' )";
@@ -101,7 +101,7 @@
 
 		public function basic_registered_list(){
 			
-			$sql = "SELECT * FROM tech_candidates WHERE tech_can_status = 0 ";
+			$sql = "SELECT * FROM tech_candidates WHERE tech_can_status = 0 AND tech_can_hr_comment = ''";
 
 			$result = mysqli_query($this->connection, $sql);
 		
@@ -127,7 +127,7 @@
 
 		public function tech_List($id){
 			
-			$sql = "SELECT * FROM tech_candidates WHERE tech_can_technical_assign = '$id' ";
+			$sql = "SELECT * FROM tech_candidates WHERE tech_can_technical_assign = '$id' AND tech_can_technical_comment = '' ";
 	
 			$result = mysqli_query($this->connection, $sql);
 		
@@ -307,14 +307,14 @@
 			$date = $data['date'];
 
 			if(!isset($data['technical_hr_assign'])){
-				$technical_assign = 3;
+				$technical_assign = 0;
 			}
 			else{
 				$technical_assign = $data['technical_hr_assign'];
 			}
 
 			if(empty($data['hr_update_comment'])){
-				$hr_comment = 'No comments';
+				$hr_comment = '';
 			}
 			else{
 				$hr_comment = $data['hr_update_comment'];
@@ -332,7 +332,7 @@
 							tech_can_maritalstatus ='$marital_status',
 							tech_can_dor ='$date',
 							tech_can_technical_assign ='$technical_assign',
-							tech_can_hr_comment ='hr_comment',
+							tech_can_hr_comment ='$hr_comment',
 							tech_can_status  ='$can_status' WHERE tech_can_id = '$val'
 							";
 			$result = mysqli_query($this->connection, $query);
@@ -346,27 +346,28 @@
 			}
 		}
 
-		public function updateUserMeta($id, $data){
+ 		public function updateUserMeta($id, $data){
 			if($data != '' && $id != ''){
 				$count_flag = count($data);
 				$i = 0;
 
-				if(empty('user[meta][fresher]')){
-					$user[meta][fresher] = '[{"institute":"","technology":"","passout":""}]';
+				if(empty($data['fresher'])){
+					$data['fresher'] = '[{"institute":"","technology":"","passout":""}]';
 				}
 
 				foreach ($data as $key => $value) {
 	
 					$query = "UPDATE tech_candidate_meta SET 
-									tech_can_id = '$id',
-									tech_can_meta_key ='$key',
-									tech_can_meta_value = '$value' ";	
-
+									tech_can_meta_value = '$value'
+									WHERE
+									tech_can_id = $id AND
+									tech_can_meta_key = '$key'";
 					$result = mysqli_query($this->connection, $query);
 					if($result){
 						$i++;
 					}
 				}
+
 
 				if($count_flag == $i){
 					return true;

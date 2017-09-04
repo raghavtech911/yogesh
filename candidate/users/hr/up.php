@@ -38,9 +38,9 @@
       if(isset($_POST['btn_assign_update'])){
 
         if(isset($_POST['user'])){
-          $status = $core->updateUserData($_POST['user'],$val);
+          $status = $core->addHrComment($_POST['user'],$val);
           if($status){
-            echo "<script>alert('Data Updated'); </script>";
+            echo "<script>alert('Data Updated'); document.location='dashboard.php'</script>";
           }else{
             echo '<script>alert("Updated Failed");</script>';         
           }
@@ -64,14 +64,14 @@
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group ">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                  <input type="text" name="user[name]" id="name" class="form-control" placeholder="Enter Name" value="<?php echo $row['tech_can_fullname']; ?>" disabled />
+                  <input type="text"  id="name" class="form-control" placeholder="Enter Name" value="<?php echo $row['tech_can_fullname']; ?>" disabled />
                 </div>
               </div>
               
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group ">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                  <input type="email" name="user[email]" id="email" class="form-control" placeholder="Enter Your Email" onkeyup="checkemail();" maxlength="40" required value="<?php echo $row['tech_can_email'];?>" disabled />
+                  <input type="email" id="email" class="form-control" placeholder="Enter Your Email" onkeyup="checkemail();" maxlength="40" required value="<?php echo $row['tech_can_email'];?>" disabled />
                 </div>
                 <small id="email_status" class="text-danger"></small>
                 <!-- <span class="text-danger"><?php echo $emailError; ?></span> -->
@@ -82,14 +82,14 @@
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-                  <input type="text" name="user[mobile]" id="mobile" class="form-control" placeholder="Enter Your Mobile" maxlength="13" pattern="[+91][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" title="Please enter 10 digit phone number! example: 9876543210" required disabled value="<?php echo $row['tech_can_mobile'];?>" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode != 47 || event.charCode <= 9"/> 
+                  <input type="text" id="mobile" class="form-control" placeholder="Enter Your Mobile" maxlength="13" pattern="[+91][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" title="Please enter 10 digit phone number! example: 9876543210" required disabled value="<?php echo $row['tech_can_mobile'];?>" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode != 47 || event.charCode <= 9"/> 
                 </div>
               </div>
 
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-education"></span></span>
-                  <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification" disabled>
+                  <select class="form-control selectpicker" title="Qualification..." id="qualification" disabled>
                     <optgroup label="B.E.">
                       <option value="computer_science" 
                               <?php if( $row['tech_can_qualification'] == 'computer_science' ) { echo "selected='selected'"; }?> >Computer Science
@@ -121,7 +121,7 @@
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
-                  <select class="form-control selectpicker" title="Apply for profile..." name="appliedposition" id="appliedposition" disabled>
+                  <select class="form-control selectpicker" title="Apply for profile..." id="appliedposition" disabled>
                     <option value="php_developer" 
                             <?php if( $row['tech_can_appliedposition'] == 'php_developer' ) { echo "selected='selected'"; }?> >PHP Developer
                     </option>
@@ -146,7 +146,7 @@
               <div class="form-group dateContainer col-lg-4 exp-row">
                 <div class="input-group date" id="datetimePicker">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                  <input type="text" name="user[date]" id="date" class="form-control" placeholder="YYYY-MM-DD h:m" value="<?php echo date("Y-m-d h:i:s");?>" disabled/> 
+                  <input type="text" id="date" class="form-control" placeholder="YYYY-MM-DD h:m" value="<?php echo date("Y-m-d h:i:s");?>" disabled/> 
                 </div>
               </div>
             </div>
@@ -156,11 +156,11 @@
                 <label class="col-lg-4 control-label label-pad" for="Gender">Gender</label>
                 <div class="col-md-8">
                   <label class="radio-inline col-md-4 ">
-                    <input checked="checked" data-val="true" data-val-required="Gender is required." id="gender" name="user[gender]" type="radio" value="male" disabled <?php echo ($row['tech_can_gender'] == 'male')? 'checked' : '' ?> required>
+                    <input id="gender" name="user[gender]" type="radio" value="male" disabled <?php echo ($row['tech_can_gender'] == 'male')? 'checked' : '' ?> required>
                     Male
                   </label>
                   <label class="radio-inline col-md-4 pad-left-20">
-                    <input id="gender" name="user[gender]" type="radio" value="female" disabled <?php echo ($row['tech_can_gender'] == 'female')? 'checked' : '' ?> required>
+                    <input id="gender" type="radio" value="female" disabled <?php echo ($row['tech_can_gender'] == 'female')? 'checked' : '' ?> required>
                     Female
                   </label>
                 </div>
@@ -170,11 +170,11 @@
                 <label class="col-lg-4 control-label label-pad" for="marital_status">Marital Status</label>
                 <div class="col-md-8">
                   <label class="radio-inline col-md-4">
-                    <input id="marital_status" name="user[marital_status]" type="radio" value="unmarried" <?php echo ($row['tech_can_maritalstatus'] == 'unmarried') ? 'checked' : '' ?> required disabled>
+                    <input id="marital_status" type="radio" value="unmarried" <?php echo ($row['tech_can_maritalstatus'] == 'unmarried') ? 'checked' : '' ?> required disabled>
                     Unmarried
                   </label>
                   <label class="radio-inline col-md-4 pad-left-20">
-                    <input id="marital_status" name="user[marital_status]" type="radio" value="married" <?php echo ($row['tech_can_maritalstatus'] == 'married') ? 'checked' : '' ?> required disabled>
+                    <input id="marital_status" type="radio" value="married" <?php echo ($row['tech_can_maritalstatus'] == 'married') ? 'checked' : '' ?> required disabled>
                     Married
                   </label>
                 </div>
@@ -190,7 +190,7 @@
             <div class="row">
               <h3>
               <span class="title-head">Experience</span>
-              <input id="id_radio1" type="radio" name="user[exp_type]" value="exp" disabled <?php echo ($ex == 'exp') ? 'checked' : '' ?> />
+              <input id="id_radio1" type="radio" value="exp" disabled <?php echo ($ex == 'exp') ? 'checked' : '' ?> />
         
               <span class="title-head">Fresher</span>
               <input id="id_radio2" type="radio" name="name_radio1" value="fresher" disabled <?php echo ($fr == 'fresher') ? 'checked' : '' ?> />
@@ -518,7 +518,7 @@
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                       <!-- <input type="text" name="tech_can_hr_comment" class="form-control" placeholder="Hr Comment" maxlength="50"  required /> -->
-                      <textarea class="form-control" name="user[hr_update_comment]"  id="hr_update_comment" placeholder="Hr Comment"><?php echo $row['tech_can_hr_comment']; ?></textarea>
+                      <textarea class="form-control" name="user[hr_update_comment]"  id="hr_update_comment" placeholder="Hr Comment" required><?php echo $row['tech_can_hr_comment']; ?></textarea>
                       </div>
                     </span>
                   </div>
@@ -534,7 +534,7 @@
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                         <div class="select-control">
-                        <select class="input-group form-control" id="technical_hr_assign" name="user[technical_hr_assign]">
+                        <select class="input-group form-control" id="technical_hr_assign" name="user[technical_hr_assign]" required>
                          <option value="">Assign technical!</option>
                         <?php 
                         while ($techlist = mysqli_fetch_array($result1, MYSQLI_ASSOC)){

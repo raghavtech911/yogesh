@@ -65,7 +65,7 @@
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group ">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                  <input type="text" name="user[name]" id="name" class="form-control" placeholder="Enter Name" value="<?php echo $row['tech_can_fullname']; ?>" pattern="[a-zA-Z ]{2,}" title="Alphabets only! Please enter more than two letters" />
+                  <input type="text" name="user[name]" id="name" class="form-control" placeholder="Enter Name" value="<?php echo $row['tech_can_fullname']; ?>" pattern="[a-zA-Z ]{2,}" title="Alphabets only! Please enter more than two letters" required/>
                 </div>
               </div>
               
@@ -208,13 +208,13 @@
                   <li class="repeater input-group exp-row">  
                     <div class="col-lg-5">
                         <div class="input-group exp-row">
-                          <input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50" value="<?php echo $exparr[$i]['company']; ?>" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
+                          <input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" value="<?php echo $exparr[$i]['company']; ?>" /> 
                         </div>
                     </div>
 
                     <div class=" col-lg-4">
                       <div class="input-group exp-row">
-                        <input type="text" class="form-control exp-text exp-designation" placeholder="Designation" maxlength="50" value="<?php echo $exparr[$i]['desg']; ?>" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
+                        <input type="text" class="form-control exp-text exp-designation" placeholder="Designation" maxlength="50"  pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" value="<?php echo $exparr[$i]['desg']; ?>"/> 
                       </div>
                     </div>
 
@@ -247,7 +247,7 @@
 
                 <input type="hidden" id="exp-data" value='<?php echo $row["exp"]; ?>' name="user[meta][exp]" />
                 <div class="clear"></div>
-                <div id="education_fields"></div>
+                <!-- <div id="education_fields"></div> -->
               </div>
             </div>
             <!--End Experience input start-->
@@ -260,13 +260,13 @@
                   <li class="repeater_fresher input-group exp-row">
                     <div class="col-lg-5">
                       <div class="input-group exp-row">
-                        <input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50"  value="<?php echo $fresherarr[$j]['institute']; ?>" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/>
+                        <input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" value="<?php echo $fresherarr[$j]['institute']; ?>" />
                       </div>
                     </div>
 
                     <div class=" col-lg-4 ">
                       <div class="input-group exp-row">
-                        <input type="text" class="form-control fresher-text training-technology" placeholder="Training on technology" maxlength="50" value="<?php echo $fresherarr[$j]['technology']; ?>" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
+                        <input type="text" class="form-control fresher-text training-technology" placeholder="Training on technology" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" value="<?php echo $fresherarr[$j]['technology']; ?>" /> 
                       </div>
                     </div>
 
@@ -421,7 +421,7 @@
                       <label for="skills">skills</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="user[meta][tech_can_skills]" class="form-control" placeholder="skills" maxlength="50" value="<?php echo $row['tech_can_skills']; ?>" required />
+                      <input type="text" name="user[meta][tech_can_skills]" class="form-control" placeholder="skills" maxlength="50" value="<?php echo $row['tech_can_skills']; ?>" required pattern="[a-zA-Z, -_]{1,}" title="Alphabets only!"/>
                       </div>
                     </span>
                   </div>
@@ -436,7 +436,7 @@
                       <label for="Current CTC">Current CTC</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" placeholder="Current CTC" maxlength="50" value="<?php echo $row['tech_can_currentctc'] ; ?>" required />
+                      <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" placeholder="Current CTC" maxlength="50" value="<?php echo $row['tech_can_currentctc'] ; ?>" required pattern="[0-9]{1,}" title="Digits only!" />
                       </div>
                     </span>
                   </div>
@@ -451,7 +451,7 @@
                       <label for="Expected CTC">Expected CTC</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" placeholder="Expected CTC" maxlength="50" value="<?php echo $row['tech_can_expectedctc'] ; ?>" required />
+                      <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" placeholder="Expected CTC" maxlength="50" value="<?php echo $row['tech_can_expectedctc'] ; ?>" required pattern="[0-9]{1,}" title="Digits only!" />
                       </div>
                     </span>
                   </div>
