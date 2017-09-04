@@ -1,4 +1,4 @@
-<!-- top navigation -->
+<!--top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
             <nav>
@@ -22,10 +22,13 @@
                     </li> -->
                     <!-- <li><a href="javascript:;">Help</a></li> -->
                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+             
+                    <!-- <li><a href="settings.php"><i class="fa fa-sign-out pull-right"></i> Settings</a></li> -->
+        
                   </ul>
                 </li>
               </ul>
             </nav>
           </div>
         </div>
-        <!-- /top navigation -->
+        <!-- /top navigation

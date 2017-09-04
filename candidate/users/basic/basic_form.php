@@ -5,10 +5,11 @@
       echo '<script>alert("Data Added");</script>';
     }else{
       echo '<script>alert("Failed");</script>';
-    
     }
   }
 ?>
+        <div class="right_col" role="main">
+
 <div class="container col-lg-9">
   <div id="Add-New">
     <form method="post" action="" id="basic_form"> 
@@ -24,16 +25,16 @@
             <div class="form-group col-lg-4 exp-row">
               <div class="input-group ">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name"/>
+                <input type="text" name="user[name]" id="name" class="form-control" placeholder="Enter Name" required="" pattern="[a-zA-Z ]{2,}" title="Alphabets only! Please enter more than two letters" />
               </div>
             </div>
             
             <div class="form-group col-lg-4 exp-row">
               <div class="input-group ">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email" onkeyup="checkemail();" maxlength="40" required />
+                <input type="email" name="user[email]" id="email" class="form-control" placeholder="Enter Your Email" onkeyup="checkemail();" maxlength="40" required />
               </div>
-              <small id="email_status" class="text-danger"></small>
+              <!-- <small id="email_status" class="text-danger"></small> -->
               <!-- <span class="text-danger"><?php echo $emailError; ?></span> -->
             </div>
           </div>
@@ -42,14 +43,14 @@
             <div class="form-group col-lg-4 exp-row">
               <div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-                <input type="text" name="user[mobile]" id="mobile" class="form-control" placeholder="Enter Your Mobile"  pattern="[+91][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" title="Please enter 10 digit phone number! example: 9876543210" required value="+91" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode != 47 || event.charCode <= 9"/> 
+                <input type="text" name="user[mobile]" id="mobile" class="form-control" placeholder="Enter Your Mobile"  pattern="[+][9][1][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" maxlength="13" title="Please enter 10 digit phone number! example: 9876543210" required value="+91" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode != 47 || event.charCode <= 9"/> 
               </div>
             </div>
 
             <div class="form-group col-lg-4 exp-row">
               <div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-education"></span></span>
-                <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification">
+                <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification" required="">
                 <optgroup label="B.E.">
                   <option value="computer_science">Computer Science</option>
                   <option value="civil" >Civil</option>
@@ -69,7 +70,7 @@
             <div class="form-group col-lg-4 exp-row">
               <div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
-                <select class="form-control selectpicker" title="Apply for profile..." name="user[appliedposition]" id="appliedposition">
+                <select class="form-control selectpicker" title="Apply for profile..." name="user[appliedposition]" id="appliedposition" required="">
                   <option value="php_developer" >PHP Developer</option>
                   <option value="ui_designer">UI Designer</option>
                   <option value="graphic_designer">Graphic Designer</option>
@@ -116,7 +117,7 @@
                   Unmarried
                 </label>
                 <label class="radio-inline col-md-4 pad-left-20">
-                  <input id="marital_status" name="user[marital_status]" type="radio" value="married" required>
+                  <input id="marital_status" name="user[marital_status]" type="radio" value="married" >
                   Married
                 </label>
               </div>
@@ -143,39 +144,49 @@
           <!--Start Experience input-->
           <div class="" id="div1">
             <div class="row">
-              <div class="repeater_container">
-                <div class="repeater input-group">
+              <ul class="repeater_container">
+                <li class="repeater input-group exp-row">
 
                   <div class="col-lg-5">
                       <div class="input-group exp-row">
-                        <input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50"  /> 
+                        <input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50"  pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
                       </div>
                   </div>
 
                   <div class=" col-lg-4">
                     <div class="input-group exp-row">
-                      <input type="text" class="form-control exp-text exp-designation" placeholder="Designation" maxlength="50"  /> 
+                      <input type="text" class="form-control exp-text exp-designation" placeholder="Designation" maxlength="50"  pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
                     </div>
                   </div>
 
                   <div class="col-lg-2">
                     <div class="input-group exp-row">
-                      <input type="text" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience(Years)"/>
+                      <input type="number" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience(Years)" />
                     </div>
                   </div>
 
-                  <div class="col-sm-1">
+                  <div class="col-sm-1" id="remove_li">
                     <div class="input-group-btn">
-                      <button class="btn btn-success" id="add-new-row" type="button" onclick="education_fields();">
-                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                      <button class="btn btn-danger" type="button" id="remove-new-row"> 
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
+                      </button>
                     </div>
                   </div>
+                </li>
+              </ul>
 
+              <div class="col-sm-1" style="float:right;" id="add_li">
+                <div class="input-group-btn">
+                  <!-- <button class="btn btn-success" type="button" onclick="education_fields();">  -->
+                  <button class="btn btn-success" type="button" id="add-new-row"> 
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+                  </button>
                 </div>
               </div>
+
               <input type="hidden" id="exp-data" name="user[meta][exp]" value='[{"company":"","desg":"","ym":""}]' />
               <div class="clear"></div>
-              <div id="education_fields"></div>
+              <!-- <div id="education_fields"></div> -->
             </div>
           </div>
           <!--End Experience input start-->
@@ -183,39 +194,48 @@
           <!--Start Fresher input-->
           <div class="" id="div2" style="display: none">
             <div class="row">
-              <div class="repeater_container_fresher">
-                <div class="repeater_fresher input-group">
+              <ui class="repeater_container_fresher" style="list-style-type:none;">
+                <li class="repeater_fresher input-group exp-row">
                   
                   <div class="col-lg-5">
                     <div class="input-group exp-row">
-                      <input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50" />
+                      <input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/>
                     </div>
                   </div>
 
                   <div class=" col-lg-4 ">
                     <div class="input-group exp-row">
-                      <input type="text" class="form-control fresher-text training-technology" placeholder="Training on technology" maxlength="50" /> 
+                      <input type="text" class="form-control fresher-text training-technology" placeholder="Training on technology" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
                     </div>
                   </div>
 
                   <div class="col-lg-2">
                     <div class="input-group exp-row">
-                      <input type="text" step="any" title="" class="form-control fresher-text passout-year" placeholder="Pass out year" />
+                      <input type="number" title="Please enter a valid year!" class="form-control fresher-text passout-year" placeholder="Pass out year" />
                     </div>
                   </div>
 
-                  <div class="col-sm-1">
+                  <div class="col-sm-1" id="remove_li">
                     <div class="input-group-btn">
-                      <button class="btn btn-success" type="button" id="add-new-fresher-row" onclick="fresher_education_fields();">
-                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                     </div>
+                      <button class="btn btn-danger" type="button" id="remove-new-fresher-row"> 
+                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
+                      </button>
+                    </div>
                   </div>
+                </li>
+              </ui>
 
+              <div class="col-sm-1" style="float:right;" id="add_li_fresher">
+                <div class="input-group-btn">
+                  <button class="btn btn-success" type="button" id="add-new-fresher-row"> 
+                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+                  </button>
                 </div>
               </div>
+
               <input type="hidden" id="fresher-data" name="user[meta][fresher]" value='[{"institute":"","technology":"","passout":""}]' />
               <div class="clear"></div>
-              <div id="fresher_education_fields"></div>
+              <!-- <div id="fresher_education_fields"></div> -->
             </div>
           </div>
           <!--End Fresher input-->
@@ -225,7 +245,7 @@
             <div class="row form-group ">
               <div class="col-md-4 col-md-offset-5">
                 <div class="input-group exp-row">
-                  <input type="text" name="user[meta][notice_period]" id="day_month" class="form-control" placeholder="Notice period (Day/Month)" maxlength="50"/>
+                  <input type="text" name="user[meta][notice_period]" id="day_month" class="form-control" placeholder="Notice period (Day/Month)" maxlength="50" required="" pattern="[0-9 ]{1,}" />
                 </div>
               </div>
               
@@ -337,7 +357,7 @@
                     <label for="skills">skills</label>
                     </div>
                     <div class="col-md-5 col-sm-5 input-group">
-                    <input type="text" name="user[meta][tech_can_skills]" class="form-control" placeholder="skills" maxlength="50" required />
+                    <input type="text" name="user[meta][tech_can_skills]" class="form-control" placeholder="skills" maxlength="50" required pattern="[a-zA-Z ]{1,}" title="Alphabets only!" />
                     </div>
                   </span>
                 </div>
@@ -352,7 +372,7 @@
                     <label for="Current CTC">Current CTC</label>
                     </div>
                     <div class="col-md-5 col-sm-5 input-group">
-                    <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" placeholder="Current CTC" maxlength="50" required />
+                    <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" placeholder="Current CTC" maxlength="50" required pattern="[0-9]{1,}" title="Digits only!" />
                     </div>
                   </span>
                 </div>
@@ -367,7 +387,7 @@
                     <label for="Expected CTC">Expected CTC</label>
                     </div>
                     <div class="col-md-5 col-sm-5 input-group">
-                    <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" placeholder="Expected CTC" maxlength="50" required />
+                    <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" placeholder="Expected CTC" maxlength="50" required pattern="[0-9]{1,}" title="Digits only!" />
                     </div>
                   </span>
                 </div>
@@ -384,7 +404,7 @@
                     <div class="col-md-5 col-sm-5 input-group">
                       <span>
                         <label class="radio-inline">
-                            <input checked="checked" data-val="true" data-val-required="required." id="hear-about" name="user[meta][tech_can_hearabout]" type="radio" value="friend" >
+                            <input checked="checked" id="hear-about" name="user[meta][tech_can_hearabout]" type="radio" value="friend" >
                             Friend
                         </label>
 
@@ -420,4 +440,5 @@
         </div>      
     </form>
   </div>
+</div>
 </div>

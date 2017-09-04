@@ -7,7 +7,7 @@
         printf("Error: %s\n", mysqli_error($core->connection));
         exit();
       }
-      $exparr =   json_decode($row['exp'],true) ;
+      $exparr = json_decode($row['exp'],true) ;
       $fresherarr = json_decode($row['fresher'],true);
 
       $explen = count(json_decode($row['exp']));
@@ -26,12 +26,24 @@
           }
         }
       }
+
+      if(isset($_POST['btn-basic-update'])){
+        if(isset($_POST['user'])){
+          $status = $core->updateUserData($_POST['user'],$val);
+          if($status){
+            echo "<script>alert('Data Updated'); </script>";
+          }else{
+            echo '<script>alert("Updated Failed");</script>';
+          
+          }
+        }
+      }
     }
   ?>
  
   <div class="container col-lg-9">
     <div id="Add-New">
-      <form method="post" action="users/basic/basic_logic.php" id="basic_form"> 
+      <form method="post" action="" id="basic_form"> 
         <div class="row">
           <!--Container main col-4 -->
           <!--Start Add Details here-->
@@ -44,14 +56,14 @@
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group ">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                  <input type="text" name="name" id="name" class="form-control" placeholder="Enter Name" value="<?php echo $row['tech_can_fullname']; ?>" />
+                  <input type="text" name="user[name]" id="name" class="form-control" placeholder="Enter Name" value="<?php echo $row['tech_can_fullname']; ?>" />
                 </div>
               </div>
               
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group ">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
-                  <input type="email" name="email" id="email" class="form-control" placeholder="Enter Your Email" onkeyup="checkemail();" maxlength="40" required value="<?php echo $row['tech_can_email'];?>" />
+                  <input type="email" name="user[email]" id="email" class="form-control" placeholder="Enter Your Email" onkeyup="checkemail();" maxlength="40" required value="<?php echo $row['tech_can_email'];?>" />
                 </div>
                 <small id="email_status" class="text-danger"></small>
                 <!-- <span class="text-danger"><?php echo $emailError; ?></span> -->
@@ -62,14 +74,14 @@
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-phone"></span></span>
-                  <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Enter Your Mobile" maxlength="13" pattern="[+91][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" title="Please enter 10 digit phone number! example: 9876543210" required value="<?php echo $row['tech_can_mobile'];?>" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode != 47 || event.charCode <= 9"/> 
+                  <input type="text" name="user[mobile]" id="mobile" class="form-control" placeholder="Enter Your Mobile" maxlength="13" pattern="[+][9][1][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]" title="Please enter 10 digit phone number! example: 9876543210" required value="<?php echo $row['tech_can_mobile'];?>" onkeypress="return event.charCode >= 46 && event.charCode <= 57 && event.charCode != 47 || event.charCode <= 9"/> 
                 </div>
               </div>
 
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-education"></span></span>
-                  <select class="form-control selectpicker" title="Qualification..." name="qualification" id="qualification">
+                  <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification">
                     <optgroup label="B.E.">
                       <option value="computer_science" 
                               <?php if( $row['tech_can_qualification'] == 'computer_science' ) { echo "selected='selected'"; }?> >Computer Science
@@ -101,7 +113,7 @@
               <div class="form-group col-lg-4 exp-row">
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
-                  <select class="form-control selectpicker" title="Apply for profile..." name="appliedposition" id="appliedposition">
+                  <select class="form-control selectpicker" title="Apply for profile..." name="user[appliedposition]" id="appliedposition">
                     <option value="php_developer" 
                             <?php if( $row['tech_can_appliedposition'] == 'php_developer' ) { echo "selected='selected'"; }?> >PHP Developer
                     </option>
@@ -118,7 +130,7 @@
               <div class="form-group dateContainer col-lg-4 exp-row">
                 <div class="input-group date" id="datetimePicker">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                  <input type="text" name="date" id="date" class="form-control" placeholder="YYYY-MM-DD h:m" value="<?php echo date("Y-m-d h:i:s");?>" /> 
+                  <input type="text" name="user[date]" id="date" class="form-control" placeholder="YYYY-MM-DD h:m" value="<?php echo date("Y-m-d h:i:s");?>" /> 
                 </div>
               </div>
             </div>
@@ -128,11 +140,11 @@
                 <label class="col-lg-4 control-label label-pad" for="Gender">Gender</label>
                 <div class="col-md-8">
                   <label class="radio-inline col-md-4 ">
-                    <input checked="checked" data-val="true" data-val-required="Gender is required." id="gender" name="gender" type="radio" value="male" <?php echo ($row['tech_can_gender'] == 'male')? 'checked' : '' ?> required>
+                    <input checked="checked" data-val="true" data-val-required="Gender is required." id="gender" name="user[gender]" type="radio" value="male" <?php echo ($row['tech_can_gender'] == 'male')? 'checked' : '' ?> required>
                     Male
                   </label>
                   <label class="radio-inline col-md-4 pad-left-20">
-                    <input id="gender" name="gender" type="radio" value="female" <?php echo ($row['tech_can_gender'] == 'female')? 'checked' : '' ?> required>
+                    <input id="gender" name="user[gender]" type="radio" value="female" <?php echo ($row['tech_can_gender'] == 'female')? 'checked' : '' ?> required>
                     Female
                   </label>
                 </div>
@@ -142,11 +154,11 @@
                 <label class="col-lg-4 control-label label-pad" for="marital_status">Marital Status</label>
                 <div class="col-md-8">
                   <label class="radio-inline col-md-4">
-                    <input checked="checked" data-val="true" data-val-required="Marital-Status is required." id="marital_status" name="marital_status" type="radio" value="unmarried" <?php echo ($row['tech_can_maritalstatus'] == 'unmarried') ? 'checked' : '' ?> required>
+                    <input checked="checked" data-val="true" data-val-required="Marital-Status is required." id="marital_status" name="user[marital_status]" type="radio" value="unmarried" <?php echo ($row['tech_can_maritalstatus'] == 'unmarried') ? 'checked' : '' ?> required>
                     Unmarried
                   </label>
                   <label class="radio-inline col-md-4 pad-left-20">
-                    <input id="marital_status" name="marital_status" type="radio" value="married" <?php echo ($row['tech_can_maritalstatus'] == 'married') ? 'checked' : '' ?> required>
+                    <input id="marital_status" name="user[marital_status]" type="radio" value="married" <?php echo ($row['tech_can_maritalstatus'] == 'married') ? 'checked' : '' ?> required>
                     Married
                   </label>
                 </div>
@@ -162,10 +174,10 @@
             <div class="row">
               <h3>
               <span class="title-head">Experience</span>
-              <input id="id_radio1" type="radio" name="name_radio1" value="exp" <?php echo ($ex == 'exp') ? 'checked' : '' ?> />
+              <input id="id_radio1" type="radio" name="user[exp_type]" value="exp" <?php echo ($ex == 'exp') ? 'checked' : '' ?> />
         
               <span class="title-head">Fresher</span>
-              <input id="id_radio2" type="radio" name="name_radio1" value="fresher" <?php echo ($fr == 'fresher') ? 'checked' : '' ?> />
+              <input id="id_radio2" type="radio" name="user[exp_type]" value="fresher" <?php echo ($fr == 'fresher') ? 'checked' : '' ?> />
               </h3>
             </div>
             <!--End Radio button for Experience and Fresher-->
@@ -174,11 +186,9 @@
 
             <div class="" id="div1" style="display: none;">
               <div class="row">
-                <div class="repeater_container">
-                  <div class="repeater input-group">
-
-                 
-                    <?php for($i=0; $i<$explen; $i++) { ?>
+                <ul class="repeater_container ">
+                  <?php for($i=0; $i<$explen; $i++) { ?>
+                  <li class="repeater input-group exp-row">  
                     <div class="col-lg-5">
                         <div class="input-group exp-row">
                           <input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50" value="<?php echo $exparr[$i]['company']; ?>" /> 
@@ -197,25 +207,28 @@
                       </div>
                     </div>
 
-                    <?php if($i<1){?>
-                    <div class="col-sm-1">
+                    <div class="col-sm-1" id="remove_li">
                       <div class="input-group-btn">
-                        <button class="btn btn-success" id="add-new-row" type="button" onclick="education_fields();">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        <button class="btn btn-danger" type="button" id="remove-new-row"> 
+                          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
+                        </button>
                       </div>
                     </div>
-                    <?php }else{?>
-                    <div class="col-sm-1">
-                      <div class="input-group-btn">
-                        <button class="btn btn-danger" id=remove-new-row" type="button" onclick="remove_education_fields();">
-                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-                      </div>
-                    </div>
-                    <?php }?>
-                    <?php } ?>
+                    
+                  </li>
+                  <?php } ?>
+                </ul>
+
+                <div class="col-sm-1" style="float:right;" id="add_li">
+                  <div class="input-group-btn">
+                    <!-- <button class="btn btn-success" type="button" onclick="education_fields();">  -->
+                    <button class="btn btn-success" type="button" id="add-new-row"> 
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+                    </button>
                   </div>
                 </div>
-                <input type="hidden" id="exp-data" value='<?php echo $row["exp"]; ?>' name="exp_fields" />
+
+                <input type="hidden" id="exp-data" value='<?php echo $row["exp"]; ?>' name="user[meta][exp]" />
                 <div class="clear"></div>
                 <div id="education_fields"></div>
               </div>
@@ -225,11 +238,9 @@
             <!--Start Fresher input-->
             <div class="" id="div2" style="display: none;">
               <div class="row">
-                <div class="repeater_container_fresher">
-                  <div class="repeater_fresher input-group">
-
-                    <?php for($j=0; $j<$fresherlen; $j++) { ?>
-
+                <ul class="repeater_container_fresher">
+                  <?php for($j=0; $j<$fresherlen; $j++) { ?>
+                  <li class="repeater_fresher input-group exp-row">
                     <div class="col-lg-5">
                       <div class="input-group exp-row">
                         <input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50"  value="<?php echo $fresherarr[$j]['institute']; ?>" />
@@ -248,30 +259,31 @@
                       </div>
                     </div>
 
-                    <?php if($j<1){?>
-                    <div class="col-sm-1">
+                    <div class="col-sm-1" id="remove_li">
                       <div class="input-group-btn">
-                        <button class="btn btn-success" type="button" id="add-new-fresher-row" onclick="fresher_education_fields();">
-                        <span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-                       </div>
-                    </div>
-                    <?php }else{?>
-                    <div class="col-sm-1">
-                      <div class="input-group-btn">
-                        <button class="btn btn-danger" id=remove-new-fresher-row" type="button" onclick="remove_fresher_education_fields();">
-                        <span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                        <button class="btn btn-danger" type="button" id="remove-new-fresher-row"> 
+                          <span class="glyphicon glyphicon-minus" aria-hidden="true"></span> 
+                        </button>
                       </div>
                     </div>
-                    <?php }?>
-                    <?php }?>
+                  </li>
+                  <?php }?>
+                </ul>
 
+                <div class="col-sm-1" style="float:right;" id="add_li_fresher">
+                  <div class="input-group-btn">
+                    <button class="btn btn-success" type="button" id="add-new-fresher-row"> 
+                      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> 
+                    </button>
                   </div>
                 </div>
-                <input type="hidden" id="fresher-data" name="fresher_fields" />
+
+                <input type="hidden" id="fresher-data" name="user[meta][fresher]"" />
                 <div class="clear"></div>
-                <div id="fresher_education_fields"></div>
+                <!-- <div id="fresher_education_fields"></div> -->
               </div>
             </div>
+
             <!--End Fresher input-->
 
             <!--Start Expected period-->
@@ -279,13 +291,13 @@
               <div class="row form-group ">
                 <div class="col-md-4 col-md-offset-5">
                   <div class="input-group exp-row">
-                    <input type="text" name="day_month" id="day_month" class="form-control" placeholder="Notice period (Day/Month)" maxlength="50" value="<?php echo $row['notice_period']; ?>" />
+                    <input type="text" name="user[meta][notice_period]" id="day_month" class="form-control" placeholder="Notice period (Day/Month)" maxlength="50" pattern="[0-9]{1,}" value="<?php echo $row['notice_period']; ?>" />
                   </div>
                 </div>
                 
                 <div class="col-md-2">
                   <div class="input-group">
-                  <select class="form-control" id="notice_period" name="notice_period">
+                  <select class="form-control" id="notice_period" name="user[meta][notice_type]">
                     <option value="day" <?php if( $row['notice_type'] == 'day' ) { echo "selected='selected'"; }?> >Day</option>
                     <option value="month" <?php if( $row['notice_type'] == 'month' ) { echo "selected='selected'"; }?> >Month</option>
                   </select>  
@@ -313,7 +325,7 @@
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                         <div class="select-control">
-                        <select class="form-control input-sm" id="tech_can_training" name="tech_can_training" required >
+                        <select class="form-control input-sm" id="tech_can_training" name="user[meta][tech_can_training]" required >
                           <option value="yes" <?php if( $row['tech_can_training'] == 'yes' ) { echo "selected='selected'"; }?> >Yes</option>
                           <option value="no" selected='selected' <?php if( $row['tech_can_training'] == 'no' ) { echo "selected='selected'"; }?> >No</option>
                         </select>
@@ -333,7 +345,7 @@
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                         <div class="select-control">
-                        <select class="form-control input-sm" id="tech_can_bond" name="tech_can_bond" required >
+                        <select class="form-control input-sm" id="tech_can_bond" name="user[meta][tech_can_bond]" required >
                           <option value="yes" <?php if( $row['tech_can_bond'] == 'yes' ) { echo "selected='selected'"; }?> >Yes</option>
                           <option value="no" <?php if( $row['tech_can_bond'] == 'no' ) { echo "selected='selected'"; }?> >No</option>
                         </select>
@@ -353,7 +365,7 @@
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                         <div class="select-control">
-                        <select class="form-control input-sm" id="tech_can_court" name="tech_can_court" required>
+                        <select class="form-control input-sm" id="tech_can_court" name="user[meta][tech_can_court]" required>
                           <option value="yes" <?php if( $row['tech_can_court'] == 'yes' ) { echo "selected='selected'"; }?> >Yes</option>
                           <option value="no" <?php if( $row['tech_can_court'] == 'no' ) { echo "selected='selected'"; }?> >No</option>
                         </select>
@@ -373,7 +385,7 @@
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                         <div class="select-control">
-                        <select class="form-control input-sm " id="tech_can_multishifts" name="tech_can_multishifts" required>
+                        <select class="form-control input-sm " id="tech_can_multishifts" name="user[meta][tech_can_multishifts]" required>
                           <option value="yes" <?php if( $row['tech_can_multishifts'] == 'yes' ) { echo "selected='selected'"; }?> >Yes</option>
                           <option value="no" <?php if( $row['tech_can_multishifts'] == 'no' ) { echo "selected='selected'"; }?> >No</option>
                         </select>
@@ -392,7 +404,7 @@
                       <label for="skills">skills</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="tech_can_skills" class="form-control" placeholder="skills" maxlength="50" value="<?php echo $row['tech_can_skills']; ?>" required />
+                      <input type="text" name="user[meta][tech_can_skills]" class="form-control" placeholder="skills" maxlength="50" value="<?php echo $row['tech_can_skills']; ?>" required />
                       </div>
                     </span>
                   </div>
@@ -407,7 +419,7 @@
                       <label for="Current CTC">Current CTC</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="tech_can_currentctc" class="form-control" placeholder="Current CTC" maxlength="50" value="<?php echo $row['tech_can_currentctc'] ; ?>" required />
+                      <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" placeholder="Current CTC" maxlength="50" value="<?php echo $row['tech_can_currentctc'] ; ?>" required />
                       </div>
                     </span>
                   </div>
@@ -422,7 +434,7 @@
                       <label for="Expected CTC">Expected CTC</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="tech_can_expectedctc" class="form-control" placeholder="Expected CTC" maxlength="50" value="<?php echo $row['tech_can_expectedctc'] ; ?>" required />
+                      <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" placeholder="Expected CTC" maxlength="50" value="<?php echo $row['tech_can_expectedctc'] ; ?>" required />
                       </div>
                     </span>
                   </div>
@@ -439,17 +451,17 @@
                       <div class="col-md-5 col-sm-5 input-group">
                         <span>
                           <label class="radio-inline">
-                              <input checked="checked" data-val="true" data-val-required="required." id="hear-about" name="tech_can_hearabout" type="radio" value="friend" <?php echo ($row['tech_can_hearabout'] == 'friend')? 'checked' : '' ?> >
+                              <input id="hear-about" name="user[meta][tech_can_hearabout]" type="radio" value="friend" <?php echo ($row['tech_can_hearabout'] == 'friend')? 'checked' : '' ?> >
                               Friend
                           </label>
 
                           <label class="radio-inline">
-                              <input id="tech_can_hearabout" name="tech_can_hearabout" type="radio" value="website" <?php echo ($row['tech_can_hearabout'] == 'website')? 'checked' : '' ?> >
+                              <input id="tech_can_hearabout" name="user[meta][tech_can_hearabout]" type="radio" value="website" <?php echo ($row['tech_can_hearabout'] == 'website')? 'checked' : '' ?> >
                               Website
                           </label>
                           
                           <label class="radio-inline">
-                              <input id="watch-me" name="tech_can_hearabout" type="radio" value="other" <?php echo ($row['tech_can_hearabout'] == 'other')? 'checked' : '' ?> >
+                              <input id="watch-me" name="user[meta][tech_can_hearabout]" type="radio" value="other" <?php echo ($row['tech_can_hearabout'] == 'other')? 'checked' : '' ?> >
                               Other
                           </label>
                           
@@ -471,7 +483,7 @@
           </div>
 
           <div class="form-group col-md-4 col-md-offset-8">
-            <button type="submit" class="btn btn-block btn-primary" name="btn-submit">Submit</button>
+            <button type="submit" class="btn btn-block btn-primary" name="btn-basic-update">Submit</button>
           </div>      
       </form>
     </div>

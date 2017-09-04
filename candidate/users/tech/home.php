@@ -8,18 +8,13 @@
         <?php include 'common/top-bar.php'; ?>          
 
         <!-- page content -->
-        <?php 
-            $result = $core->hr_List();
+        <?php
+            $id =  $_SESSION['user']['tech_users_id']; 
+            $result = $core->tech_List($id);
             if(!$result){
                 printf("Error: %s\n", mysqli_error($core->connection));
                 exit();
             } 
-            if($_SESSION['user']['tech_users_username'] == 'tech_user1'){
-                $match = 3;
-            }
-            if($_SESSION['user']['tech_users_username'] == 'tech_user2'){
-                $match = 4;
-            }
         ?> 
         <div class="right_col" role="main">
           <div class="row">
@@ -68,7 +63,7 @@
 
                             <td>
                                 <?php 
-                                    if($row['tech_can_technical_assign'] == $match){ ?>
+                                    if($row['tech_can_technical_assign'] == $id){ ?>
                                         <a href='update_list.php?tech_can_id=<?php echo $b;?>'>View &nbsp;</a>
                                 <?php } ?>
                             </td>

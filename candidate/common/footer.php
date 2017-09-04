@@ -2,6 +2,11 @@
     <script src="vendors/jquery/dist/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Bootstrap validator-->
+    <!-- <script src="vendors/bootstrap-validator-master/dist/js/validator.min.js"></script> -->
+    <!-- Jquery validator-->
+    <script src="vendors/jquery-validation/dist/jquery.validate.min.js"></script>
+
     <!-- FastClick -->
     <!-- <script src="vendors/fastclick/lib/fastclick.js"></script> -->
     <!-- NProgress -->
@@ -38,15 +43,17 @@
     
     <!---my links-->
     <!--jquery-->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script> -->
     <!--bootstrap validator-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"></script> -->
     <!--bootstrap select-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
+    <script src="vendors/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
 
     <!-- Custom Theme Scripts -->
     <script src="build/js/custom.min.js"></script>
-    <script src="build/js/validate.js"></script>
+    <!-- <script src="build/js/validate.js"></script> -->
+    <script src="build/js/check.js"></script>
 
     <!-- Flot -->
     <!-- <script>
@@ -208,7 +215,7 @@
     <!-- /Doughnut Chart -->
     
     <!-- bootstrap-daterangepicker -->
-    <script>
+    <!-- <script>
       $(document).ready(function() {
 
         var cb = function(start, end, label) {
@@ -278,11 +285,11 @@
           $('#reportrange').data('daterangepicker').remove();
         });
       });
-    </script>
+    </script> -->
     <!-- /bootstrap-daterangepicker -->
 
     <!-- gauge.js -->
-    <script>
+    <!-- <script>
       var opts = {
           lines: 12,
           angle: 0,
@@ -305,7 +312,7 @@
       gauge.animationSpeed = 32;
       gauge.set(3200);
       gauge.setTextField(document.getElementById("gauge-text"));
-    </script>
+    </script> -->
     <!-- /gauge.js -->
 
     <!--my links-->
@@ -355,7 +362,7 @@
                 $(field).val(oldvalue);
             } 
         }, 1);
-    });
+      });
     });
     </script>    
     <!--/prefix 91-->
@@ -373,14 +380,13 @@
         $(el).blur(function() {
             if ($(el).val() == '') $(el).attr('type', 'text');
         });
-    });
+      });
     });
     </script>
     <!--/Date input toggle-->
 
     <!--Dynamic field for Experience-->
     <script type="text/javascript">
-
       function repeat_exp_data(){
         var all_data_arr = [];
         var th = $('.repeater_container');
@@ -398,38 +404,34 @@
           $("#exp-data").val(JSON.stringify(all_data_arr));
         }
       }
-
-      // $(document).ready(function(){
-      var room = 1;
-      $(document).on('click', '#add-new-row', function education_fields() {
-     
-        room++;
-        var objTo = document.getElementById('education_fields')
-        var divtest = document.createElement("div");
-        divtest.setAttribute("class", "form-group removeclass"+room);
-        var rdiv = 'removeclass'+room;
-        divtest.innerHTML = '<div class="repeater_container"><div class="repeater input-group"><div class="col-lg-5"><div class="input-group exp-row "><input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50"  /></div></div><div class=" col-lg-4"><div class="input-group exp-row"><input type="text" class="form-control exp-text exp-designation" placeholder="Designation" maxlength="50"  /></div></div><div class="col-lg-2 "><div class="input-group exp-row"><input type="text" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience(Years)" /></div></div><div class="col-sm-1"><div class="input-group-btn"> <button id="remove-new-row" class="btn btn-danger" type="button" onclick="remove_education_fields('+ room +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div><div class="clear"></div></div></div>';
+      $(document).ready(function(){
+        $(document).on('click', '#add-new-row', function(){
+          if($('.repeater').length > 0 ){
+            var clone_wrap = $('.repeater:first').clone(true);
+            clone_wrap.find('.exp-company').val('');
+            clone_wrap.find('.exp-designation').val('');
+            clone_wrap.find('.exp-ym').val('');
+            $('.repeater_container').append(clone_wrap);
+          }
+        });
         
-        objTo.appendChild(divtest)
-      });
-    $(document).on("keyup", ".exp-text", function(){
-          repeat_exp_data();
+        $(document).on('click', '#remove-new-row', function(){
+          if($('.repeater').length > 1 ){
+            $(this).closest('.repeater').remove();
+          }
         });
-    $(document).on("keyup", "#add-new-row", function(){
-          repeat_exp_data();
-        });
-    
-    // });
 
-    function remove_education_fields(rid) {
-        $('.removeclass'+rid).remove();
-    }
+        $(document).on("keyup", ".exp-text", function(){
+          repeat_exp_data();
+        });
+        $(document).on("keyup", "#add-new-row", function(){
+          repeat_exp_data();
+        });
+      });
     </script>
-    <!--/Dynamic field for Experience-->
 
     <!--Dynamic field for Fresher-->
     <script type="text/javascript">
-
       function repeat_fresher_data(){
         var fresher_all_data_arr = [];
         var fr = $('.repeater_container_fresher');
@@ -447,32 +449,32 @@
           $("#fresher-data").val(JSON.stringify(fresher_all_data_arr));
         }
       }
-
-      var room = 1;
-      $(document).on('click', '#add-new-fresher-row',function fresher_education_fields() {
-   
-        room++;
-        var objTo = document.getElementById('fresher_education_fields')
-        var divtest = document.createElement("div");
-        divtest.setAttribute("class", "form-group removeclass"+room);
-        var rdiv = 'removeclass'+room;
-        divtest.innerHTML = '<div class="repeater_container_fresher"><div class="repeater_fresher input-group"><div class="col-lg-5"><div class="input-group exp-row"><input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50"/></div></div><div class=" col-lg-4 "><div class="input-group exp-row"><input type="text" class="form-control fresher-text training-technology" placeholder="Training on technology" maxlength="50"/></div></div><div class="col-lg-2"><div class="input-group exp-row"><input type="text" step="any" title="" class="form-control fresher-text passout-year" placeholder="Pass out year" /></div></div><div class="col-sm-1"><div class="input-group-btn"> <button id="remove-new-row" class="btn btn-danger" type="button" onclick="remove_fresher_education_fields('+ room +');"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span> </button></div></div><div class="clear"></div></div></div>';
+      $(document).ready(function(){
+        $(document).on('click', '#add-new-fresher-row', function(){
+          if($('.repeater_fresher').length > 0 ){
+            var clone_wrap = $('.repeater_fresher:first').clone(true);
+            clone_wrap.find('.name-institute').val('');
+            clone_wrap.find('.training-technology').val('');
+            clone_wrap.find('.passout-year').val('');
+            $('.repeater_container_fresher').append(clone_wrap);
+          }
+        });
         
-        objTo.appendChild(divtest)
-      });
-      $(document).on("keyup", ".fresher-text", function(){
-          repeat_fresher_data();
-      });
+        $(document).on('click', '#remove-new-fresher-row', function(){
+          if($('.repeater_fresher').length > 1 ){
+            $(this).closest('.repeater_fresher').remove();
+          }
+        });
 
-      $(document).on("keyup", "#add-new-fresher-row", function(){
+        $(document).on("keyup", ".fresher-text", function(){
           repeat_fresher_data();
+        });
+
+        $(document).on("keyup", "#add-new-fresher-row", function(){
+          repeat_fresher_data();
+        });
       });
-      
-      function remove_fresher_education_fields(rid) {
-        $('.removeclass'+rid).remove();
-      }
     </script>
-  
     <!--/Dynamic field for Fresher-->
 
     <!--Other radio button-->
@@ -514,6 +516,31 @@
       });
     </script>
     <!-- /Exp-Fresher radio button-->
+
+    <!--check existing Email-->
+    <!-- <script type="text/javascript">
+    function checkemail(){
+      var email=document.getElementById( "email" ).value;
+      
+      if(email){
+        $.ajax({
+          type: 'post',
+          url: 'core.class.php',
+          data: {
+            email:email,
+          },
+          success: function (response) {
+            $( '#email_status' ).html(response);
+          }
+        });
+      }
+      else{
+        $( '#email_status' ).html("");
+        return false;
+      }
+    }      
+    </script> -->
+    <!---/check existing Email-->
 
     <!--/my links-->
       </body>

@@ -101,7 +101,7 @@
 
 		public function basic_registered_list(){
 			
-			$sql = "SELECT * FROM tech_candidates ";
+			$sql = "SELECT * FROM tech_candidates WHERE tech_can_status = 0 ";
 
 			$result = mysqli_query($this->connection, $sql);
 		
@@ -125,10 +125,10 @@
 			}
 		}
 
-		public function tech_List(){
+		public function tech_List($id){
 			
-			$sql = "SELECT * FROM tech_candidates WHERE tech_can_status =0";
-
+			$sql = "SELECT * FROM tech_candidates WHERE tech_can_technical_assign = '$id' ";
+	
 			$result = mysqli_query($this->connection, $sql);
 		
 			if($result){
@@ -295,5 +295,99 @@
 			}
 		}
 
+		/*Update*/
+		public function updateUserData($data,$val){
+			$name = $data['name'];
+			$email = $data['email'];
+			$mobile = $data['mobile'];
+			$gender = $data['gender'];
+			$qualification = $data['qualification'];
+			$appliedposition = $data['appliedposition'];
+			$marital_status = $data['marital_status'];
+			$date = $data['date'];
+
+			if(!isset($data['technical_hr_assign'])){
+				$technical_assign = 3;
+			}
+			else{
+				$technical_assign = $data['technical_hr_assign'];
+			}
+
+			if(empty($data['hr_update_comment'])){
+				$hr_comment = 'No comments';
+			}
+			else{
+				$hr_comment = $data['hr_update_comment'];
+			}
+
+			$can_status = 0;
+			$meta_data = $data['meta'];
+			$query = "UPDATE tech_candidates SET 
+							tech_can_fullname ='$name',
+							tech_can_email ='$email',
+							tech_can_mobile ='$mobile',
+							tech_can_gender ='$gender',
+							tech_can_qualification ='$qualification',
+							tech_can_appliedposition ='$appliedposition',
+							tech_can_maritalstatus ='$marital_status',
+							tech_can_dor ='$date',
+							tech_can_technical_assign ='$technical_assign',
+							tech_can_hr_comment ='hr_comment',
+							tech_can_status  ='$can_status' WHERE tech_can_id = '$val'
+							";
+			$result = mysqli_query($this->connection, $query);
+			$lastuser = $val;
+
+			$status = $this->updateUserMeta($lastuser, $meta_data);
+			if($status){
+				return true;
+			}else{
+				return false;
+			}
+		}
+
+		public function updateUserMeta($id, $data){
+			if($data != '' && $id != ''){
+				$count_flag = count($data);
+				$i = 0;
+
+				if(empty('user[meta][fresher]')){
+					$user[meta][fresher] = '[{"institute":"","technology":"","passout":""}]';
+				}
+
+				foreach ($data as $key => $value) {
+	
+					$query = "UPDATE tech_candidate_meta SET 
+									tech_can_id = '$id',
+									tech_can_meta_key ='$key',
+									tech_can_meta_value = '$value' ";	
+
+					$result = mysqli_query($this->connection, $query);
+					if($result){
+						$i++;
+					}
+				}
+
+				if($count_flag == $i){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		}
+
+		// public function checkmail(){ 
+		// 	if(isset($_POST['email'])){   
+		// 		$email =$_POST['email'];
+		// 		$checkdata=" SELECT tech_can_email FROM tech_candidates WHERE tech_can_email ='$email' ";
+
+		// 		$query=mysqli_query($this->connection,$checkdata);
+
+		// 		if(mysqli_num_rows($query)>0){
+		// 			echo "Email Already Exist";
+		// 	  	}
+		// 	}	
+		// }	
+		
 	}
 ?>
