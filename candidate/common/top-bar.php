@@ -23,7 +23,7 @@
                     <!-- <li><a href="javascript:;">Help</a></li> -->
                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
              
-                    <!-- <li><a href="settings.php"><i class="fa fa-sign-out pull-right"></i> Settings</a></li> -->
+                    <!-- <li><a href="settings.php"><i class="fa fa-cog pull-right"></i> Settings</a></li> -->
         
                   </ul>
                 </li>

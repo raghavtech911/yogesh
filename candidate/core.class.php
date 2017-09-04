@@ -377,6 +377,40 @@
 			}
 		}
 
+		public function addGraduation($data){
+
+			$key = $data['degree'];
+			$value = $data['meta']['stream'];
+
+
+			$query = "INSERT INTO tech_settings_meta (tech_settings_meta_key, tech_settings_meta_value) VALUES ('$key','$value')";
+			$result = mysqli_query($this->connection, $query);
+
+			if($result){
+				return true;
+			}else{
+				return false;
+			}
+	
+		}
+
+		public function addPosition($data){
+
+			$key = 'position';
+			$value = $data['position'];
+
+			$query = "INSERT INTO tech_settings_meta (tech_settings_meta_key, tech_settings_meta_value) VALUES ('$key','$value')";
+			$result = mysqli_query($this->connection, $query);
+
+			if($result){
+				return true;
+			}else{
+				return false;
+			}
+	
+		}
+
+
 		// public function checkmail(){ 
 		// 	if(isset($_POST['email'])){   
 		// 		$email =$_POST['email'];

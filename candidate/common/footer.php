@@ -1,5 +1,10 @@
 <!-- jQuery -->
+    
     <script src="vendors/jquery/dist/jquery.min.js"></script>
+    <!--Typehead script -->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!--/Typehead script -->
     <!-- Bootstrap -->
     <script src="vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- Bootstrap validator-->
@@ -429,6 +434,7 @@
         });
       });
     </script>
+    <!--/Dynamic field for Experience-->
 
     <!--Dynamic field for Fresher-->
     <script type="text/javascript">
@@ -476,6 +482,47 @@
       });
     </script>
     <!--/Dynamic field for Fresher-->
+
+
+    <!--Dynamic field for Stream-->
+    <script type="text/javascript">
+      function repeat_stream_data(){
+        var all_data_stream_arr = [];
+        var st = $('.repeater_stream_container');
+        if($('.repeater_stream').length > 0 ){
+          st.find('.repeater_stream').each(function(){
+            var exp_stream = $(this).find('.exp-stream').val();
+            all_data_stream_arr.push({
+              'stream': exp_stream
+            });
+          });
+          $("#stream-data").val(JSON.stringify(all_data_stream_arr));
+        }
+      }
+      $(document).ready(function(){
+        $(document).on('click', '#add-new-stream-row', function(){
+          if($('.repeater_stream').length > 0 ){
+            var clone_wrap = $('.repeater_stream:first').clone(true);
+            clone_wrap.find('.exp-stream').val('');
+            $('.repeater_stream_container').append(clone_wrap);
+          }
+        });
+        
+        $(document).on('click', '#remove-new-stream-row', function(){
+          if($('.repeater_stream').length > 1 ){
+            $(this).closest('.repeater_stream').remove();
+          }
+        });
+
+        $(document).on("keyup", ".stream-text", function(){
+          repeat_stream_data();
+        });
+        $(document).on("keyup", "#add-new-stream-row", function(){
+          repeat_stream_data();
+        });
+      });
+    </script>
+    <!--/Dynamic field for Stream-->
 
     <!--Other radio button-->
     <script type="text/javascript">
@@ -542,6 +589,51 @@
     </script> -->
     <!---/check existing Email-->
 
+    <!--Typehead autocomplete-->
+
+    <script>
+    $( function() {
+      var availableTags = [
+        "ActionScript","AppleScript",
+        "BASIC","C","C++","Java","Clojure","COBOL","ColdFusion","Erlang","Fortran","Groovy","Haskell",
+        "JavaScript","Html","Css","Android","Angular","Bootstrap","Html 4",
+        "Lisp","Perl","PHP","Asp","Python","Ruby","Scala","Scheme","Swift","Ionic 3.0","Ionic 3.5","Sql","Xml","JSON","Jquery","Node.js"
+      ];
+      function split( val ) {
+        return val.split( /,\s*/ );
+      }
+      function extractLast( term ) {
+        return split( term ).pop();
+      }
+
+      $( "#tags" )
+        .on( "keydown", function( event ) {
+          if ( event.keyCode === $.ui.keyCode.TAB &&
+              $( this ).autocomplete( "instance" ).menu.active ) {
+            event.preventDefault();
+          }
+        })
+        .autocomplete({
+          minLength: 0,
+          source: function( request, response ) {
+            response( $.ui.autocomplete.filter(
+              availableTags, extractLast( request.term ) ) );
+          },
+          focus: function() {
+            return false;
+          },
+          select: function( event, ui ) {
+            var terms = split( this.value );
+            terms.pop();
+            terms.push( ui.item.value );
+            terms.push( "" );
+            this.value = terms.join( ", " );
+            return false;
+          }
+        });
+    } );
+    </script>
+    <!--/Typehead autocomplete-->
     <!--/my links-->
       </body>
 </html>

@@ -421,7 +421,7 @@
                       <label for="skills">skills</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="user[meta][tech_can_skills]" class="form-control" placeholder="skills" maxlength="50" value="<?php echo $row['tech_can_skills']; ?>" required pattern="[a-zA-Z, -_]{1,}" title="Alphabets only!"/>
+                      <input type="text" name="user[meta][tech_can_skills]" id="tags" class="form-control" placeholder="skills" maxlength="50" value="<?php echo $row['tech_can_skills']; ?>" required pattern="[a-zA-Z, -_]{1,}" title="Alphabets only!"/>
                       </div>
                     </span>
                   </div>
