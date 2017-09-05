@@ -24,12 +24,12 @@
       $ex = ''; $fr = '';
       foreach ($row as $key => $value) {
         if($key=='exp'){ 
-          if($explen > 1){
+          if($explen > 0 && !empty($exparr[0]['company'])){
             $ex = $key;
           }
         }
         if($key=='fresher'){ 
-          if($fresherlen > 1){
+          if($fresherlen > 0 && !empty($fresherarr[0]['institute'])){
             $fr = $key;
           }
         }
@@ -518,7 +518,7 @@
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                       <!-- <input type="text" name="tech_can_hr_comment" class="form-control" placeholder="Hr Comment" maxlength="50"  required /> -->
-                      <textarea class="form-control" name="user[hr_update_comment]"  id="hr_update_comment" placeholder="Hr Comment" required><?php echo $row['tech_can_hr_comment']; ?></textarea>
+                      <textarea class="form-control" name="user[hr_update_comment]"  id="hr_update_comment" placeholder="Hr Comment" ><?php echo $row['tech_can_hr_comment']; ?></textarea>
                       </div>
                     </span>
                   </div>

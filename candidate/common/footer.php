@@ -136,89 +136,6 @@
     </script> -->
     <!-- /Flot -->
 
-    <!-- JQVMap -->
-    <!-- <script>
-      $(document).ready(function(){
-        $('#world-map-gdp').vectorMap({
-            map: 'world_en',
-            backgroundColor: null,
-            color: '#ffffff',
-            hoverOpacity: 0.7,
-            selectedColor: '#666666',
-            enableZoom: true,
-            showTooltip: true,
-            values: sample_data,
-            scaleColors: ['#E6F2F0', '#149B7E'],
-            normalizeFunction: 'polynomial'
-        });
-      });
-    </script> -->
-    <!-- /JQVMap -->
-
-    <!-- Skycons -->
-    <!-- <script>
-      $(document).ready(function() {
-        var icons = new Skycons({
-            "color": "#73879C"
-          }),
-          list = [
-            "clear-day", "clear-night", "partly-cloudy-day",
-            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-            "fog"
-          ],
-          i;
-
-        for (i = list.length; i--;)
-          icons.set(list[i], list[i]);
-
-        icons.play();
-      });
-    </script> -->
-    <!-- /Skycons -->
-
-    <!-- Doughnut Chart -->
-    <!-- <script>
-      $(document).ready(function(){
-        var options = {
-          legend: false,
-          responsive: false
-        };
-
-        new Chart(document.getElementById("canvas1"), {
-          type: 'doughnut',
-          tooltipFillColor: "rgba(51, 51, 51, 0.55)",
-          data: {
-            labels: [
-              "Symbian",
-              "Blackberry",
-              "Other",
-              "Android",
-              "IOS"
-            ],
-            datasets: [{
-              data: [15, 20, 30, 10, 30],
-              backgroundColor: [
-                "#BDC3C7",
-                "#9B59B6",
-                "#E74C3C",
-                "#26B99A",
-                "#3498DB"
-              ],
-              hoverBackgroundColor: [
-                "#CFD4D8",
-                "#B370CF",
-                "#E95E4F",
-                "#36CAAB",
-                "#49A9EA"
-              ]
-            }]
-          },
-          options: options
-        });
-      });
-    </script> -->
-    <!-- /Doughnut Chart -->
-    
     <!-- bootstrap-daterangepicker -->
     <!-- <script>
       $(document).ready(function() {
@@ -634,6 +551,113 @@
     } );
     </script>
     <!--/Typehead autocomplete-->
+
+    <!--Radio exp button required-->
+    <script type="text/javascript">
+  
+    $(document).ready(function () {
+
+      // $("#id_radio1").change(function () {
+      //     if ($(this).is(':checked')) {
+      //         $("#current_ctc").attr("required", "required");
+      //         $("#expected_ctc").attr("required", "required");
+
+      //     }
+      // });
+      // $("#id_radio2").change(function () {
+      //     if ($(this).is(':checked')) {
+      //         $("#current_ctc").removeAttr("required");
+      //         $("#expected_ctc").attr("required", "required");
+
+      //     }
+      // }); 
+
+      if($('#id_radio1').is(':checked')){
+        $("#current_ctc").attr("required", "required");
+        $("#expected_ctc").attr("required", "required");
+      }
+      if($('#id_radio2').is(':checked')){
+        $("#current_ctc").removeAttr("required");
+        $("#expected_ctc").attr("required", "required");
+      }
+
+      $('#id_radio1').click(function () {
+        $("#current_ctc").attr("required", "required");
+        $("#expected_ctc").attr("required", "required");
+      });
+      $('#id_radio2').click(function () {
+        $("#current_ctc").removeAttr("required");
+        $("#expected_ctc").attr("required", "required");
+        $('#current_ctc').val("0");
+
+      });
+    });
+  
+    </script>
+    <!--/Radio exp button required-->
+
+    <!--Radio exp button required for dynamic fields-->
+    <script type="text/javascript">
+  
+    $(document).ready(function () {
+
+      // $("#id_radio1").change(function () {
+      //     if ($(this).is(':checked')) {
+      //         $("#current_ctc").attr("required", "required");
+      //         $("#expected_ctc").attr("required", "required");
+
+      //     }
+      // });
+      // $("#id_radio2").change(function () {
+      //     if ($(this).is(':checked')) {
+      //         $("#current_ctc").removeAttr("required");
+      //         $("#expected_ctc").attr("required", "required");
+
+      //     }
+      // }); 
+
+      if($('#id_radio1').is(':checked')){
+        $("#exp-company").attr("required", "required");
+        $("#exp-designation").attr("required", "required");
+        $("#exp-ym").attr("required", "required");
+
+        $("#name-institute").removeAttr("required");
+        $("#training-technology").removeAttr("required");
+        $("#passout-year").removeAttr("required");  
+      }
+      if($('#id_radio2').is(':checked')){
+        $("#name-institute").attr("required", "required");
+        $("#training-technology").attr("required", "required");
+        $("#passout-year").attr("required", "required");
+
+        $("#exp-company").removeAttr("required");
+        $("#exp-designation").removeAttr("required");
+        $("#exp-ym").removeAttr("required");
+      }
+
+      $('#id_radio1').click(function () {
+        $("#exp-company").attr("required", "required");
+        $("#exp-designation").attr("required", "required");
+        $("#exp-ym").attr("required", "required");
+
+        $("#name-institute").removeAttr("required");
+        $("#training-technology").removeAttr("required");
+        $("#passout-year").removeAttr("required");    
+      });
+      $('#id_radio2').click(function () {
+        $("#name-institute").attr("required", "required");
+        $("#training-technology").attr("required", "required");
+        $("#passout-year").attr("required", "required");
+
+        $("#exp-company").removeAttr("required");
+        $("#exp-designation").removeAttr("required");
+        $("#exp-ym").removeAttr("required");        
+      });
+    });
+  
+    </script>
+    <!--/Radio exp button required for dynamic fields-->
+
     <!--/my links-->
       </body>
 </html>

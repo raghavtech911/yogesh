@@ -149,19 +149,19 @@
 
                   <div class="col-lg-5">
                       <div class="input-group exp-row">
-                        <input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50"  pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
+                        <input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50"  pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" id="exp-company"/> 
                       </div>
                   </div>
 
                   <div class=" col-lg-4">
                     <div class="input-group exp-row">
-                      <input type="text" class="form-control exp-text exp-designation" placeholder="Designation" maxlength="50"  pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
+                      <input type="text" class="form-control exp-text exp-designation" placeholder="Designation" maxlength="50"  pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" id="exp-designation"/> 
                     </div>
                   </div>
 
                   <div class="col-lg-2">
                     <div class="input-group exp-row">
-                      <input type="number" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience(Years)" />
+                      <input type="number" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience(Years)" id="exp-ym"/>
                     </div>
                   </div>
 
@@ -199,19 +199,19 @@
                   
                   <div class="col-lg-5">
                     <div class="input-group exp-row">
-                      <input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/>
+                      <input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" id="name-institute"/>
                     </div>
                   </div>
 
                   <div class=" col-lg-4 ">
                     <div class="input-group exp-row">
-                      <input type="text" class="form-control fresher-text training-technology" placeholder="Training on technology" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters"/> 
+                      <input type="text" class="form-control fresher-text training-technology" placeholder="Training on technology" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" id="training-technology"/> 
                     </div>
                   </div>
 
                   <div class="col-lg-2">
                     <div class="input-group exp-row">
-                      <input type="number" title="Please enter a valid year!" class="form-control fresher-text passout-year" placeholder="Pass out year" />
+                      <input type="number" title="Please enter a valid year!" class="form-control fresher-text passout-year" placeholder="Pass out year" id="passout-year"/>
                     </div>
                   </div>
 
@@ -372,7 +372,7 @@
                     <label for="Current CTC">Current CTC</label>
                     </div>
                     <div class="col-md-5 col-sm-5 input-group">
-                    <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" placeholder="Current CTC" maxlength="50" required pattern="[0-9]{1,}" title="Digits only!" />
+                    <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" id="current_ctc" placeholder="Current CTC" maxlength="50"  pattern="[0-9]{1,}" title="Digits only!"/>
                     </div>
                   </span>
                 </div>
@@ -387,7 +387,7 @@
                     <label for="Expected CTC">Expected CTC</label>
                     </div>
                     <div class="col-md-5 col-sm-5 input-group">
-                    <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" placeholder="Expected CTC" maxlength="50" required pattern="[0-9]{1,}" title="Digits only!" />
+                    <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" id="expected_ctc" placeholder="Expected CTC" maxlength="50"  pattern="[0-9]{1,}" title="Digits only!" />
                     </div>
                   </span>
                 </div>

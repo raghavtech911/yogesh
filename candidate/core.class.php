@@ -83,6 +83,7 @@
 					$user[meta][fresher] = '[{"institute":"","technology":"","passout":""}]';
 				}
 
+
 				foreach ($data as $key => $value) {
 					$query = "INSERT INTO tech_candidate_meta (tech_can_id,tech_can_meta_key,tech_can_meta_value) VALUES ('$id','$key','$value')";
 					$result = mysqli_query($this->connection, $query);
