@@ -78,14 +78,6 @@
               </div>
             </div>
 
-             <!-- <div class="form-group col-lg-4 exp-row">
-              <div class="input-group">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-                <input type="date" name="dob" id="datepicker" class="form-control" placeholder="Date of birth"  /> 
-              </div>
-              <!<span class="text-danger"><?php //echo $dateError; ?></span>
-            </div> --> 
-
             <div class="form-group dateContainer col-lg-4 exp-row">
               <div class="input-group date" id="datetimePicker">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
