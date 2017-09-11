@@ -44,6 +44,8 @@
 
                   <tbody>
                     <?php 
+                      $count = mysqli_num_rows($result);             
+                      if($count > 0 ){ 
                       while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                       $b = $row['tech_can_id'];
                     ?>
@@ -56,7 +58,11 @@
                       <td><?php echo $row['tech_can_dor']; ?></td>
                       <td><a href='update_list.php?tech_can_id=<?php echo $b;?>'>Edit</a></td>
                     </tr>
-                    <?php } ?>
+                    <?php }} else {?>
+                    <tr>
+                      <td colspan='7'><?php echo "No data"; ?></td>
+                    </tr>
+                    <?php }?>
                   </tbody>
                 </table>
               </div>

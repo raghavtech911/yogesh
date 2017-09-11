@@ -12,6 +12,8 @@
     <!-- Jquery validator-->
     <script src="vendors/jquery-validation/dist/jquery.validate.min.js"></script>
 
+
+
     <!-- FastClick -->
     <!-- <script src="vendors/fastclick/lib/fastclick.js"></script> -->
     <!-- NProgress -->
@@ -54,6 +56,9 @@
     <!--bootstrap select-->
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script> -->
     <script src="vendors/bootstrap-select-1.12.4/dist/js/bootstrap-select.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+
 
     <!-- Custom Theme Scripts -->
     <script src="build/js/custom.min.js"></script>
@@ -414,14 +419,16 @@
             });
           });
           $("#stream-data").val(JSON.stringify(all_data_stream_arr));
+          // $("#stream-data").val(all_data_stream_arr);
         }
       }
       $(document).ready(function(){
         $(document).on('click', '#add-new-stream-row', function(){
           if($('.repeater_stream').length > 0 ){
-            var clone_wrap = $('.repeater_stream:first').clone(true);
-            clone_wrap.find('.exp-stream').val('');
-            $('.repeater_stream_container').append(clone_wrap);
+            // var clone_wrap = $('.repeater_stream:first').clone(true);
+            // clone_wrap.find('.exp-stream').val('');
+            // $('.repeater_stream_container').append(clone_wrap);
+            $(".repeater_stream:first").clone().appendTo(".repeater_stream_container").find(":text").val("");
           }
         });
         
@@ -440,6 +447,48 @@
       });
     </script>
     <!--/Dynamic field for Stream-->
+
+
+    <!--Dynamic field for Position-->
+    <script type="text/javascript">
+      function repeat_position_data(){
+        var all_data_position_arr = [];
+        var st = $('.repeater_position_container');
+        if($('.repeater_position').length > 0 ){
+          st.find('.repeater_position').each(function(){
+            var exp_position = $(this).find('.exp-position').val();
+            all_data_position_arr.push({
+              'position': exp_position
+            });
+          });
+          $("#position-data").val(JSON.stringify(all_data_position_arr));
+        }
+      }
+      $(document).ready(function(){
+        $(document).on('click', '#add-new-position-row', function(){
+          if($('.repeater_position').length > 0 ){
+            var clone_wrap = $('.repeater_position:first').clone(true);
+            clone_wrap.find('.exp-position').val('');
+            $('.repeater_position_container').append(clone_wrap);
+          }
+        });
+        
+        $(document).on('click', '#remove-new-position-row', function(){
+          if($('.repeater_position').length > 1 ){
+            $(this).closest('.repeater_position').remove();
+          }
+        });
+
+        $(document).on("keyup", ".position-text", function(){
+          repeat_position_data();
+        });
+        $(document).on("keyup", "#add-new-position-row", function(){
+          repeat_position_data();
+        });
+      });
+    </script>
+    <!--/Dynamic field for Position-->
+
 
     <!--Other radio button-->
     <script type="text/javascript">
@@ -482,7 +531,7 @@
     <!-- /Exp-Fresher radio button-->
 
     <!--check existing Email-->
-    <!-- <script type="text/javascript">
+    <script type="text/javascript">
     function checkemail(){
       var email=document.getElementById( "email" ).value;
       
@@ -503,7 +552,7 @@
         return false;
       }
     }      
-    </script> -->
+    </script>
     <!---/check existing Email-->
 
     <!--Typehead autocomplete-->
@@ -658,6 +707,27 @@
     </script>
     <!--/Radio exp button required for dynamic fields-->
 
+    <!--Jquery Confirm alert-->
+    <!-- <script type="text/javascript">
+      $( "#btn-submit" ).click(function() {
+        $.confirm({
+          title: 'success!',
+          content: 'The data was saved successfuly!',
+          buttons: {
+            View: function () {
+                window.location = 'update_list.php';
+            },
+            Home: {
+              text: 'Home',
+              action: function () {
+                  $(location).attr('href', 'dashboard.php')
+              }
+            }
+          }
+        });
+      });
+    </script> -->
+    <!--/Jquery Confirm alert-->
     <!--/my links-->
       </body>
 </html>

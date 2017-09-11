@@ -380,37 +380,220 @@
 
 		public function addGraduation($data){
 
-			$key = $data['degree'];
-			$value = $data['meta']['stream'];
+			$deg = $_POST["user"];
+			$key = 'graduation';
+			$degree = $deg['degree'];
+			$stream = $deg['stream'];
 
+			// $value = json_encode($position);
 
-			$query = "INSERT INTO tech_settings_meta (tech_settings_meta_key, tech_settings_meta_value) VALUES ('$key','$value')";
-			$result = mysqli_query($this->connection, $query);
+	        $query = "SELECT * FROM tech_settings_meta WHERE tech_settings_meta_key = 'graduation'";
+	        $result = mysqli_query($this->connection, $query);
+			$count = mysqli_num_rows($result);
 
-			if($result){
-				return true;
-			}else{
-				return false;
-			}
-	
+	            if($count > 0){
+
+	            	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                	$grad = json_decode($row['tech_settings_meta_value'],true);
+
+					// $value = json_encode($grad);
+
+					$str = array(
+					  "$degree" => $stream
+
+					  // "$degree" => $stream,
+
+					  // "$degree" => $stream,
+					);
+					$merge = array_merge($grad, $str);
+					
+	            	$value = json_encode($merge);
+
+	            	$query1 = "UPDATE tech_settings_meta SET 
+									tech_settings_meta_value = '$value' WHERE tech_settings_meta_key = '$key'";	
+
+					$result1 = mysqli_query($this->connection, $query1);
+
+					if($result1){
+						return true;
+					}else{
+						return false;
+					}
+					            	
+	            }else{
+
+					$stream = array(
+					  "$degree" => $stream
+
+					  // "$degree" => $stream,
+
+					  // "$degree" => $stream,
+					);
+
+					$value = json_encode($stream);
+
+					$query2 = "INSERT INTO tech_settings_meta (tech_settings_meta_key, tech_settings_meta_value) VALUES ('$key','$value')";
+					$result2 = mysqli_query($this->connection, $query2);
+
+					if($result2){
+						return true;
+					}else{
+						return false;
+					}	
+	            }
 		}
 
 		public function addPosition($data){
 
+			$pos = $_POST["user"];
 			$key = 'position';
-			$value = $data['position'];
+	        $position = $pos['position'];
+	  
+			// $value = json_encode($position);
 
-			$query = "INSERT INTO tech_settings_meta (tech_settings_meta_key, tech_settings_meta_value) VALUES ('$key','$value')";
+	        $query = "SELECT * FROM tech_settings_meta WHERE tech_settings_meta_key = 'position'";
+	        $result = mysqli_query($this->connection, $query);
+			$count = mysqli_num_rows($result);
+
+	            if($count > 0){
+
+	            	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                	$post = json_decode($row['tech_settings_meta_value'],true);
+
+					// $value = json_encode($position);
+
+	            	$merge = array_values(array_unique(array_merge($post, $position)));
+	            	$value = json_encode($merge);
+
+	            	$query1 = "UPDATE tech_settings_meta SET 
+									tech_settings_meta_value = '$value' WHERE tech_settings_meta_key = '$key'";	
+
+					$result1 = mysqli_query($this->connection, $query1);
+
+					if($result1){
+						return true;
+					}else{
+						return false;
+					}
+					            	
+	            }else{
+					$value = json_encode($position);
+
+					$query2 = "INSERT INTO tech_settings_meta (tech_settings_meta_key, tech_settings_meta_value) VALUES ('$key','$value')";
+					$result2 = mysqli_query($this->connection, $query2);
+
+					if($result2){
+						return true;
+					}else{
+						return false;
+					}	
+	            }
+		}
+
+		public function registerUser($data){
+			$name = $data['name'];
+			$email = $data['email'];
+			$mobile = $data['mobile'];
+			$gender = $data['gender'];
+			$qualification = $data['qualification'];
+			$appliedposition = $data['appliedposition'];
+			$marital_status = $data['marital_status'];
+			$date = $data['date'];
+			//$technical_assign = $data['technical_assign'];
+			$technical_assign = '';
+			$technical_comment = '';
+			$hr_comment = '';
+			$can_status = 0;
+			$meta_data = $data['meta'];
+			$query = "INSERT INTO tech_can_register (tech_can_fullname, tech_can_email, tech_can_mobile, tech_can_gender, tech_can_qualification, tech_can_appliedposition, tech_can_maritalstatus, tech_can_dor, tech_can_technical_assign, tech_can_technical_comment, tech_can_hr_comment, tech_can_status) VALUES ('$name','$email','$mobile','$gender','$qualification','$appliedposition','$marital_status','$date','$technical_assign','$technical_comment','$hr_comment','$can_status' )";
+
 			$result = mysqli_query($this->connection, $query);
+			$lastuser = mysqli_insert_id($this->connection);
 
-			if($result){
+			$status = $this->registerUserMeta($lastuser, $meta_data);
+			if($status){
 				return true;
 			}else{
 				return false;
 			}
-	
 		}
 
+		public function registerUserMeta($id, $data){
+			if($data != '' && $id != ''){
+				$count_flag = count($data);
+				$i = 0;
+
+				if(empty('user[meta][fresher]')){
+					$user[meta][fresher] = '[{"institute":"","technology":"","passout":""}]';
+				}
+
+
+				foreach ($data as $key => $value) {
+					$query = "INSERT INTO tech_can_register_meta (tech_can_id,tech_can_meta_key,tech_can_meta_value) VALUES ('$id','$key','$value')";
+					$result = mysqli_query($this->connection, $query);
+					if($result){
+						$i++;
+					}
+				}
+
+				if($count_flag == $i){
+					return true;
+				}else{
+					return false;
+				}
+			}
+		}
+
+		/*user position*/
+		public function position_List(){
+			
+			$query = "SELECT * FROM tech_settings_meta WHERE tech_settings_meta_key = 'position'";
+	        $result = mysqli_query($this->connection, $query);
+			$count = mysqli_num_rows($result);
+
+	        if($count > 0){
+
+            	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                $post = json_decode($row['tech_settings_meta_value'],true);
+
+                // echo "<pre>";
+                //   print_r($post);
+                // echo "</pre>";
+
+				if($post){
+					return $post;
+				}else{
+					return false;
+				}
+			}
+		}	
+		/*user position*/
+
+		/*user graduation dynamic*/
+		public function graduation_List(){
+			
+			$query = "SELECT * FROM tech_settings_meta WHERE tech_settings_meta_key = 'graduation'";
+	        $result = mysqli_query($this->connection, $query);
+			$count = mysqli_num_rows($result);
+
+	        if($count > 0){
+
+            	$row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+                $graduation_list = json_decode($row['tech_settings_meta_value'],true);
+
+                // echo "<pre>";
+                //   print_r($post);
+                // echo "</pre>";
+
+				if($graduation_list){
+					return $graduation_list;
+				}else{
+					return false;
+				}
+			}
+		}	
+		/*user graduation dynamic*/
+		
 
 		// public function checkmail(){ 
 		// 	if(isset($_POST['email'])){   
@@ -426,4 +609,5 @@
 		// }	
 		
 	}
+
 ?>

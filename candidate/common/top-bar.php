@@ -22,9 +22,9 @@
                     </li> -->
                     <!-- <li><a href="javascript:;">Help</a></li> -->
                     <li><a href="logout.php"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
-             
-                    <!-- <li><a href="settings.php"><i class="fa fa-cog pull-right"></i> Settings</a></li> -->
-        
+                    <?php if($role == 1){?>
+                    <li><a href="settings.php"><i class="fa fa-cog pull-right"></i> Settings</a></li>
+                    <?php }?>
                   </ul>
                 </li>
               </ul>

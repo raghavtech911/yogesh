@@ -19,16 +19,16 @@
             
             }
           }
-
         }
 
         if(isset($_POST['btn-position-submit'])){
           if(isset($_POST['user'])){
-            $result = $core->addPosition($_POST['user']);
-            if($result){
+            $status = $core->addPosition($_POST['user']);
+            if($status){
               echo '<script>alert("Data Added");</script>';
             }else{
-              echo '<script>alert("Failed");</script>';   
+              echo '<script>alert("Failed");</script>';
+            
             }
           }
         }
@@ -76,8 +76,7 @@
 
                                   <div class="col-lg-11">
                                     <div class="input-group exp-row">
-                                      <input type="text" class="form-control" name="user[stream][]" value=""
-                                      placeholder="Stream" required/>
+                                      <input type="text" class="form-control stream-text exp-stream" placeholder="Stream" required/>
                                     </div>
                                   </div>
 
@@ -99,7 +98,7 @@
                                 </div>
                               </div>
 
-                              <!-- <input type="hidden" id="stream-data" name="user[meta][stream]" /> -->
+                              <input type="hidden" id="stream-data" name="user[meta][stream]" />
                               <div class="clear"></div>
                             </div>
                           </div>
@@ -128,7 +127,7 @@
                       <div class="form-group">
                         <span>
                           <div class="col-md-3 col-sm-3">
-                          <label for="position">position</label>
+                          <label for="position"  >position</label>
                           </div>
                           <div class="col-md-7 col-sm-7 input-group">
                             <div class="row">
@@ -137,7 +136,7 @@
 
                                   <div class="col-lg-11">
                                     <div class="input-group exp-row">
-                                      <input type="text" class="form-control position-text exp-position" name="user[position][]" placeholder="Position" required/>
+                                      <input type="text" class="form-control position-text exp-position" placeholder="Position" required/>
                                     </div>
                                   </div>
 

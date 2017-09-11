@@ -42,7 +42,9 @@
                     </thead>
 
                     <tbody>
-                      <?php 
+                      <?php
+                        $count = mysqli_num_rows($result);             
+                        if($count > 0 ){ 
                         while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
                         $b = $row['tech_can_id'];
                       ?>
@@ -59,7 +61,11 @@
                             <a href='users/hr/hr_approve.php?tech_can_id=<?php echo $b;?>''>Approve &nbsp;</a>
                         </td>
                       </tr>
-                      <?php } ?>
+                      <?php }} else {?>
+                      <tr>
+                        <td colspan='7'><?php echo "No data"; ?></td>
+                      </tr>
+                      <?php }?>
                     </tbody>
                   </table>
                 </div>

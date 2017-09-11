@@ -57,7 +57,7 @@
                 <section class="login_content">
                     <h3 class="text-center"><?php echo $error; ?></h3>
                     <form method="post" action="">
-                        <h1>Login Form</h1>
+                        <h1 style="font-size: 35px;">Login Form</h1>
                         <div>
                             <input type="text" class="form-control" name="username" placeholder="Username" required="" />
                         </div>
@@ -66,15 +66,15 @@
                         </div>
                         <div>
                             <input type="submit" class="btn btn-default submit" name="login" value="Log in" />
-                            <a class="reset_pass" href="#">Lost your password?</a>
+                            <!-- <a class="reset_pass" href="#">Lost your password?</a> -->
                         </div>
 
                         <div class="clearfix"></div>
 
                         <div class="separator">
-                            <!-- <p class="change_link">New to site?
-                                <a href="#signup" class="to_register"> Create Account </a>
-                            </p> -->
+                            <p class="change_link">New to site?
+                                <a href="register.php" class="to_register"> Register Here </a>
+                            </p>
 
                             <div class="clearfix"></div>
                             <br />

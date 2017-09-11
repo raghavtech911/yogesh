@@ -1,22 +1,5 @@
-<?php 
-  if(isset($_POST['user'])){
-    $status = $core->addUserData($_POST['user']);
-    if($status){
-      echo '<script>alert("Data Added");</script>';
-    }else{
-      echo '<script>alert("Failed");</script>';
-    }
-  }
-
-  $post = $core->position_List();
-  $poslength = count($post);
- 
-  $graduation_list = $core->graduation_List();
-  $graduation_list_length = count($graduation_list);
-?>
-<div class="right_col" role="main">
-
-<div class="container col-lg-9">
+<?php include 'common/header.php'; ?>
+<div class="container col-lg-5" style="background-color: #f7f7f7; ">
   <div id="Add-New">
     <form method="post" action="" id="basic_form"> 
       <div class="row">
@@ -53,7 +36,7 @@
               </div>
             </div>
 
-            <!-- <div class="form-group col-lg-4 exp-row">
+            <div class="form-group col-lg-4 exp-row">
               <div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-education"></span></span>
                 <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification" required="">
@@ -69,45 +52,28 @@
                 </optgroup>
                 </select>
               </div>
-            </div> -->
-
-            <!--graduation list dynamic-->
-            <div class="form-group col-lg-4 exp-row">
-              <div class="input-group">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-education"></span></span>
-                <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification" required="">
-
-                <?php 
-                  foreach ($graduation_list as $key => $value) {
-                    $len = count($value); ?>
-                    <optgroup label="<?php echo $key;?>">
-                    <?php
-                    for($l=0; $l<$len; $l++){ ?>
-                    <option value="<?php echo $value[$l];?>"><?php echo $value[$l];?></option>
-                    <?php 
-                    } 
-                  }
-                ?>
-                </select>
-              </div>
             </div>
-            <!--graduation list dynamic-->
           </div>
 
           <div class="">
-            <!--applied position dynamic-->
             <div class="form-group col-lg-4 exp-row">
               <div class="input-group">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
                 <select class="form-control selectpicker" title="Apply for profile..." name="user[appliedposition]" id="appliedposition" required="">
-
-                  <?php for($k=0; $k<$poslength; $k++) { ?>
-                    <option value="<?php echo $post[$k];?>"><?php echo $post[$k];?></option>
-                  <?php } ?>
+                  <option value="php_developer" >PHP Developer</option>
+                  <option value="ui_designer">UI Designer</option>
+                  <option value="graphic_designer">Graphic Designer</option>
                 </select>
               </div>
             </div>
-            <!--/applied position dynamic-->
+
+             <!-- <div class="form-group col-lg-4 exp-row">
+              <div class="input-group">
+                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                <input type="date" name="dob" id="datepicker" class="form-control" placeholder="Date of birth"  /> 
+              </div>
+              <!<span class="text-danger"><?php //echo $dateError; ?></span>
+            </div> --> 
 
             <div class="form-group dateContainer col-lg-4 exp-row">
               <div class="input-group date" id="datetimePicker">
@@ -184,7 +150,7 @@
 
                   <div class="col-lg-2">
                     <div class="input-group exp-row">
-                      <input type="number" step="any" min="0" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience(Years)" id="exp-ym"/>
+                      <input type="number" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience(Years)" id="exp-ym"/>
                     </div>
                   </div>
 
@@ -234,7 +200,7 @@
 
                   <div class="col-lg-2">
                     <div class="input-group exp-row">
-                      <input type="number" min="0" title="Please enter a valid year!" class="form-control fresher-text passout-year" placeholder="Pass out year" id="passout-year"/>
+                      <input type="number" title="Please enter a valid year!" class="form-control fresher-text passout-year" placeholder="Pass out year" id="passout-year"/>
                     </div>
                   </div>
 
@@ -467,4 +433,4 @@
     </form>
   </div>
 </div>
-</div>
+<?php include 'common/footer.php'; ?>

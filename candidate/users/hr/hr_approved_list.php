@@ -48,7 +48,6 @@
                     <td><?php echo $row['tech_can_gender']; ?></td>
                     <td><?php echo $row['tech_can_dor']; ?></td>
                     <td><a href='update_list.php?tech_can_id=<?php echo $b;?>'>View &nbsp;</a>
-                        <a href='edit_details.php?tech_can_id=<?php echo $b;?>''>Edit &nbsp;</a>
                     </td>
                 </tr>
                 <?php }} else {?>

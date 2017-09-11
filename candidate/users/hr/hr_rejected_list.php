@@ -14,10 +14,10 @@
       <div class="x_panel">
         <div class="x_title">
             <h2>Rejected Users</h2>
-            <ul class="nav navbar-right panel_toolbox">
+            <!-- <ul class="nav navbar-right panel_toolbox">
                 <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                 </li>
-            </ul>
+            </ul> -->
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -49,7 +49,6 @@
                     <td><?php echo $row['tech_can_gender']; ?></td>
                     <td><?php echo $row['tech_can_dor']; ?></td>
                     <td><a href='update_list.php?tech_can_id=<?php echo $b;?>'>View &nbsp;</a>
-                        <a href='edit_details.php?tech_can_id=<?php echo $b;?>''>Edit &nbsp;</a>
                     </td>
                 </tr>
                 <?php }} else {?>

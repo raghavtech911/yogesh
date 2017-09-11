@@ -38,6 +38,12 @@
           }
         }
       }
+
+      $post = $core->position_List();
+      $poslength = count($post);
+     
+      $graduation_list = $core->graduation_List();
+      $graduation_list_length = count($graduation_list);
     }
   ?>
  
@@ -82,28 +88,17 @@
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-education"></span></span>
                   <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification">
-                    <optgroup label="B.E.">
-                      <option value="computer_science" 
-                              <?php if( $row['tech_can_qualification'] == 'computer_science' ) { echo "selected='selected'"; }?> >Computer Science
-                      </option>
-                      <option value="civil" 
-                              <?php if( $row['tech_can_qualification'] == 'civil' ) { echo "selected='selected'"; }?> >Civil
-                      </option>
-                      <option value="mechanical" 
-                              <?php if( $row['tech_can_qualification'] == 'mechanical' ) { echo "selected='selected'"; }?> >Mechanical
-                      </option>
-                    </optgroup>
-                    <optgroup label="MBA">
-                      <option value="financial_management" 
-                              <?php if( $row['tech_can_qualification'] == 'financial_management' ) { echo "selected='selected'"; }?> >Financial Management
-                      </option>
-                      <option value="hr_management" 
-                              <?php if( $qualificationnew == 'hr_management' ) { echo "selected='selected'"; }?> >HR Management
-                      </option>
-                      <option value="marketing_management" 
-                              <?php if( $row['tech_can_qualification'] == 'marketing_management' ) { echo "selected='selected'"; }?> >Marketing management
-                      </option>
-                    </optgroup>
+                    <?php 
+                      foreach ($graduation_list as $key => $value) {
+                        $len = count($value); ?>
+                        <optgroup label="<?php echo $key;?>">
+                        <?php
+                        for($l=0; $l<$len; $l++){ ?>
+                        <option value="<?php echo $value[$l];?>" <?php if( $row['tech_can_qualification'] == $value[$l] ) { echo "selected='selected'"; }?>><?php echo $value[$l];?></option>
+                        <?php 
+                        } 
+                      }
+                    ?>                    
                   </select>
                 </div>
               </div>
@@ -114,15 +109,9 @@
                 <div class="input-group">
                   <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
                   <select class="form-control selectpicker" title="Apply for profile..." name="user[appliedposition]" id="appliedposition">
-                    <option value="php_developer" 
-                            <?php if( $row['tech_can_appliedposition'] == 'php_developer' ) { echo "selected='selected'"; }?> >PHP Developer
-                    </option>
-                    <option value="ui_designer"
-                            <?php if( $row['tech_can_appliedposition'] == 'ui_designer' ) { echo "selected='selected'"; }?> >UI Designer
-                    </option>
-                    <option value="graphic_designer"
-                            <?php if( $row['tech_can_appliedposition'] == 'graphic_designer' ) { echo "selected='selected'"; }?> >Graphic Designer
-                    </option>
+                    <?php for($k=0; $k<$poslength; $k++) { ?>
+                      <option value="<?php echo $post[$k];?>" <?php if( $row['tech_can_appliedposition'] == $post[$k] ) { echo "selected='selected'"; }?> ><?php echo $post[$k];?></option>
+                    <?php } ?>
                   </select>
                 </div>
               </div>
@@ -191,19 +180,19 @@
                   <li class="repeater input-group exp-row">  
                     <div class="col-lg-5">
                         <div class="input-group exp-row">
-                          <input type="text" class="form-control exp-text exp-company" id="exp-company" placeholder="Name of Company" maxlength="50" value="<?php echo $exparr[$i]['company']; ?>" /> 
+                          <input type="text" class="form-control exp-text exp-company" id="exp-company" placeholder="Name of Company" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" value="<?php echo $exparr[$i]['company']; ?>" /> 
                         </div>
                     </div>
 
                     <div class=" col-lg-4">
                       <div class="input-group exp-row">
-                        <input type="text" class="form-control exp-text exp-designation" id="exp-designation" placeholder="Designation" maxlength="50" value="<?php echo $exparr[$i]['desg']; ?>" /> 
+                        <input type="text" class="form-control exp-text exp-designation" id="exp-designation" placeholder="Designation" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" value="<?php echo $exparr[$i]['desg']; ?>" /> 
                       </div>
                     </div>
 
                     <div class="col-lg-2">
                       <div class="input-group exp-row">
-                        <input type="text" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" id="exp-ym" placeholder="Experience(Years)" value="<?php echo $exparr[$i]['ym']; ?>" />
+                        <input type="number" step="any" min="0" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" id="exp-ym" placeholder="Experience(Years)" value="<?php echo $exparr[$i]['ym']; ?>" />
                       </div>
                     </div>
 
@@ -243,19 +232,19 @@
                   <li class="repeater_fresher input-group exp-row">
                     <div class="col-lg-5">
                       <div class="input-group exp-row">
-                        <input type="text" class="form-control fresher-text name-institute" id="name-institute" placeholder="Name of the institute" maxlength="50"  value="<?php echo $fresherarr[$j]['institute']; ?>" />
+                        <input type="text" class="form-control fresher-text name-institute" id="name-institute" placeholder="Name of the institute" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" value="<?php echo $fresherarr[$j]['institute']; ?>" />
                       </div>
                     </div>
 
                     <div class=" col-lg-4 ">
                       <div class="input-group exp-row">
-                        <input type="text" class="form-control fresher-text training-technology" id="training-technology" placeholder="Training on technology" maxlength="50" value="<?php echo $fresherarr[$j]['technology']; ?>" /> 
+                        <input type="text" class="form-control fresher-text training-technology" id="training-technology" placeholder="Training on technology" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" value="<?php echo $fresherarr[$j]['technology']; ?>" /> 
                       </div>
                     </div>
 
                     <div class="col-lg-2">
                       <div class="input-group exp-row">
-                        <input type="text" step="any" title="" class="form-control fresher-text passout-year" id="passout-year" placeholder="Pass out year" value="<?php echo $fresherarr[$j]['passout']; ?>" />
+                        <input type="number" step="any" min="0" title="Please enter a valid year!" class="form-control fresher-text passout-year" id="passout-year" placeholder="Pass out year" value="<?php echo $fresherarr[$j]['passout']; ?>" />
                       </div>
                     </div>
 
@@ -290,22 +279,24 @@
             <div class="">
               <div class="row form-group ">
                 <div class="col-md-4 col-md-offset-5">
-                  <div class="input-group exp-row">
-                    <input type="text" name="user[meta][notice_period]" id="day_month" class="form-control" placeholder="Notice period (Day/Month)" maxlength="50" pattern="[0-9]{1,}" value="<?php echo $row['notice_period']; ?>" />
-                  </div>
-                </div>
-                
-                <div class="col-md-2">
                   <div class="input-group">
-                  <select class="form-control" id="notice_period" name="user[meta][notice_type]">
-                    <option value="day" <?php if( $row['notice_type'] == 'day' ) { echo "selected='selected'"; }?> >Day</option>
-                    <option value="month" <?php if( $row['notice_type'] == 'month' ) { echo "selected='selected'"; }?> >Month</option>
-                  </select>  
-                  </div>
-                </div>
+                    <span class="input-group-addon span-notice"><span>Notice</span></span>
+                    <select class="form-control" name="user[meta][notice_period]" id="day_month" required >
+                      <?php for($k=1; $k<=50; $k++) { ?>
+                      <option value="<?php echo $k;?>" <?php if( $row['notice_period'] == $k ) { echo "selected='selected'"; }?> ><?php echo $k;?></option>
+                      <?php } ?>
+                    </select>
+      
+                    <span class="input-group-btn">
+                    <select class="form-control" id="notice_period" name="user[meta][notice_type]" style="width: auto;">
+                      <option value="day" <?php if( $row['notice_type'] == 'day' ) { echo "selected='selected'"; }?> >Day</option>
+                      <option value="month" <?php if( $row['notice_type'] == 'month' ) { echo "selected='selected'"; }?> >Month</option>
+                    </select> 
+                    </span>
+                  </div>  
+                </div> 
               </div>
             </div>
-
             <!--End Expected period-->
           </div>
           <!--/Container main col-8 -->
@@ -481,10 +472,9 @@
           <div class="form-group">
             <hr />
           </div>
-
           <div class="form-group col-md-4 col-md-offset-8">
-            <button type="submit" class="btn btn-block btn-primary" name="btn-basic-update">Submit</button>
-          </div>      
+            <button type="submit" class="btn btn-block btn-primary" name="btn-basic-update">Update</button>
+          </div>    
       </form>
     </div>
   </div>
