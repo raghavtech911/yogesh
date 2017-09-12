@@ -1,8 +1,8 @@
 <?php 
-  if(isset($_POST['user'])){
-    include 'core.class.php';
-    $core = new CanCore();
+  include 'core.class.php';
+  $core = new CanCore();
 
+  if(isset($_POST['user'])){
     $status = $core->registerUser($_POST['user']);
     if($status){
       echo '<script>alert("Registration Successful!"); document.location="index.php"</script>';
@@ -10,6 +10,11 @@
       echo '<script>alert("Registration Failed!");</script>';
     }
   }
+  $post = $core->position_List();
+  $poslength = count($post);
+ 
+  $graduation_list = $core->graduation_List();
+  $graduation_list_length = count($graduation_list);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -91,32 +96,36 @@
                               <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-education"></span></span>
                                 <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification" required="">
-                                <optgroup label="B.E.">
-                                  <option value="computer_science">Computer Science</option>
-                                  <option value="civil" >Civil</option>
-                                  <option value="mechanical" >Mechanical</option>
-                                </optgroup>
-                                <optgroup label="MBA">
-                                  <option value="financial_management" >Financial Management</option>
-                                  <option value="hr_management" >HR Management</option>
-                                  <option value="marketing_management" >Marketing management</option>
-                                </optgroup>
+                                <?php 
+                                  foreach ($graduation_list as $key => $value) {
+                                    $len = count($value); ?>
+                                    <optgroup label="<?php echo $key;?>">
+                                    <?php
+                                    for($l=0; $l<$len; $l++){ ?>
+                                    <option value="<?php echo $value[$l];?>"><?php echo $value[$l];?></option>
+                                    <?php 
+                                    } 
+                                  }
+                                ?>
                                 </select>
                               </div>
                             </div>
                           </div>
 
                           <div class="">
+                            <!--applied position dynamic-->
                             <div class="form-group col-lg-4 exp-row">
                               <div class="input-group">
                                 <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
                                 <select class="form-control selectpicker" title="Apply for profile..." name="user[appliedposition]" id="appliedposition" required="">
-                                  <option value="php_developer" >PHP Developer</option>
-                                  <option value="ui_designer">UI Designer</option>
-                                  <option value="graphic_designer">Graphic Designer</option>
+
+                                  <?php for($k=0; $k<$poslength; $k++) { ?>
+                                    <option value="<?php echo $post[$k];?>"><?php echo $post[$k];?></option>
+                                  <?php } ?>
                                 </select>
                               </div>
                             </div>
+                            <!--/applied position dynamic-->
 
                              <!-- <div class="form-group col-lg-4 exp-row">
                               <div class="input-group">
