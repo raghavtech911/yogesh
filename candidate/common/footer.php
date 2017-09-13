@@ -345,6 +345,7 @@
         $(document).on('click', '#remove-new-row', function(){
           if($('.repeater').length > 1 ){
             $(this).closest('.repeater').remove();
+            repeat_exp_data();
           }
         });
 
@@ -391,6 +392,7 @@
         $(document).on('click', '#remove-new-fresher-row', function(){
           if($('.repeater_fresher').length > 1 ){
             $(this).closest('.repeater_fresher').remove();
+            repeat_fresher_data();
           }
         });
 
@@ -405,21 +407,30 @@
     </script>
     <!--/Dynamic field for Fresher-->
 
+    <!-- <script type="text/javascript">
+      $(document).on("keyup", ".degree", function(){
+          var degree = $(".degree").val();
+          alert(degree);
+        });
+    </script> -->
 
     <!--Dynamic field for Stream-->
     <script type="text/javascript">
       function repeat_stream_data(){
+        var degree = $(".degree").val();
+
         var all_data_stream_arr = [];
+        var all_stream_arr = [];
         var st = $('.repeater_stream_container');
         if($('.repeater_stream').length > 0 ){
           st.find('.repeater_stream').each(function(){
             var exp_stream = $(this).find('.exp-stream').val();
-            all_data_stream_arr.push({
-              'stream': exp_stream
-            });
+            all_stream_arr.push(exp_stream);
+          });
+          all_data_stream_arr.push({
+            [degree]: all_stream_arr
           });
           $("#stream-data").val(JSON.stringify(all_data_stream_arr));
-          // $("#stream-data").val(all_data_stream_arr);
         }
       }
       $(document).ready(function(){
@@ -435,6 +446,7 @@
         $(document).on('click', '#remove-new-stream-row', function(){
           if($('.repeater_stream').length > 1 ){
             $(this).closest('.repeater_stream').remove();
+            repeat_stream_data();
           }
         });
 
@@ -470,12 +482,15 @@
             var clone_wrap = $('.repeater_position:first').clone(true);
             clone_wrap.find('.exp-position').val('');
             $('.repeater_position_container').append(clone_wrap);
-          }
+          }else{
+            var html_wrap = '<li class="repeater_position input-group exp-row" style="list-style-type: none;"><div class="col-lg-11"><div class="input-group exp-row"><input type="text" class="form-control position-text exp-position" name="user[position][]" placeholder="Position" required/></div></div><div class="col-sm-1" id="remove_position_li"><div class="input-group-btn"><button class="btn btn-danger" type="button" id="remove-new-position-row"> <span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button></div></div></li>';
+            $('.repeater_position_container').append(html_wrap);}
         });
         
         $(document).on('click', '#remove-new-position-row', function(){
           if($('.repeater_position').length > 1 ){
             $(this).closest('.repeater_position').remove();
+            repeat_position_data();
           }
         });
 

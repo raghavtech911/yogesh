@@ -8,8 +8,9 @@
     }
   }
 
-  $post = $core->position_List();
-  $poslength = count($post);
+  $post = $core->position_view_data();
+  $post = json_decode($post,true);
+  $poslength = count($post); 
  
   $graduation_list = $core->graduation_List();
   $graduation_list_length = count($graduation_list);
@@ -102,7 +103,7 @@
                 <select class="form-control selectpicker" title="Apply for profile..." name="user[appliedposition]" id="appliedposition" required="">
 
                   <?php for($k=0; $k<$poslength; $k++) { ?>
-                    <option value="<?php echo $post[$k];?>"><?php echo $post[$k];?></option>
+                    <option value="<?php echo $post[$k]['position'];?>"><?php echo $post[$k]['position'];?></option>
                   <?php } ?>
                 </select>
               </div>

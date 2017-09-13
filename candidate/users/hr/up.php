@@ -17,7 +17,6 @@
 
       $exparr = json_decode($row['exp'],true) ;
       $fresherarr = json_decode($row['fresher'],true);
-
       $explen = count(json_decode($row['exp']));
       $fresherlen = count(json_decode($row['fresher']));
 
@@ -47,7 +46,8 @@
         }
       }
 
-      $post = $core->position_List();
+      $post = $core->position_view_data();
+      $post = json_decode($post,true);
       $poslength = count($post);
      
       $graduation_list = $core->graduation_List();
@@ -118,7 +118,7 @@
                   <span class="input-group-addon"><span class="glyphicon glyphicon-check"></span></span>
                   <select class="form-control selectpicker" title="Apply for profile..." id="appliedposition" disabled>
                     <?php for($k=0; $k<$poslength; $k++) { ?>
-                      <option value="<?php echo $post[$k];?>" <?php if( $row['tech_can_appliedposition'] == $post[$k] ) { echo "selected='selected'"; }?> ><?php echo $post[$k];?></option>
+                      <option value="<?php echo $post[$k]['position'];?>" <?php if( $row['tech_can_appliedposition'] == $post[$k]['position'] ) { echo "selected='selected'"; }?> ><?php echo $post[$k]['position'];?></option>
                     <?php } ?>
                   </select>
                 </div>

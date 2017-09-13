@@ -13,54 +13,13 @@
           if(isset($_POST['user'])){
             $status = $core->addGraduation($_POST['user']);
             if($status){
-              // echo '<script>alert("Data Added");</script>';
-
-              // echo "<pre>";
-              //   print_r($status);
-              // echo "</pre>";
-              echo $status;
-
-              // $ak = json_decode($status,true);
-// echo $status;
-              // echo "<pre>";
-              //   print_r($ak);
-              // echo "</pre>";
-
-
-
+              echo '<script>alert("Data Added");</script>';
             }else{
               echo '<script>alert("Failed");</script>';
-            }
-        // $stream = $_POST['stream'];
-        // // $stream = $stream['stream'];
-        // echo $stream . "<br>";
-
-        // $str2 = json_decode($stream);
-        // echo "<pre>";
-        //   print_r($str2);
-        // echo "</pre>";
-
-
-        // $newline = '[{"sir":["jk1","jk2","jk3"]}]';
-        // echo $stream. "<br>";
-        // echo "<br>".$newline. "<br>";
-
-        // $str = json_decode($stream,true);
-        // $str2 = json_decode($newline,true);
-
-        // $json = json_encode(array_merge(json_decode($stream, true),json_decode($newline, true)));
-
-        // echo $json;
             
-        //     $str = json_encode($stream);
-        //     $str = json_decode($str,true);
-        // echo "<pre>";
-        //   print_r($str);
-        // echo "</pre>";
-        // echo "<pre>";
-        //   print_r($str2);
-        // echo "</pre>";
+            }
           }
+
         }
 
         if(isset($_POST['btn-position-submit'])){
@@ -74,42 +33,12 @@
           }
         }
 
-        $post = $core->position_view_data();
-        $post = json_decode($post,true);
-        $poslength = count($post);    
-
-
-        $glist = $core->graduation_test_List();
-        $glist_arr = json_decode($glist,true);
-        // $poslength = count($post); 
-
-        echo "<pre>";
-          print_r($glist_arr);
-        echo "</pre>";
-
-        // foreach ($glist_arr as $key => $value) {
-        //   echo $key ."<br>";
-
-        //   foreach ($value as $key1 => $value1) {
-        //     echo $key1 ."<br>";
-        //   }
-          // echo "<pre>";
-          //   print_r($value);
-          // echo "</pre>";
-        // }
-
-
-        // function find_key_value($array, $key, $val){
-        //   foreach ($array as $item)
-        //   {
-        //       if (is_array($item) && find_key_value($item, $key, $val)) return true;
-
-        //       if (isset($item[$key]) && $item[$key] == $val) return true;
-        //   }
-
-        //   return false;
-        // }
-
+        $post = $core->position_List();
+        $poslength = count($post);
+       
+        $graduation_list = $core->graduation_List();
+        $graduation_list_length = count($graduation_list);
+          
         ?>
         <div class="right_col" role="main">
         <div class="container col-lg-9">
@@ -122,17 +51,40 @@
                 <form method="post" action="" id="basic_form"> 
                   <div class="">
                     <h3 class="title-head">Add Graduation Details</h3>
-                  </div>                  
+                  </div> 
+
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12">
+                      <div class="form-group">
+                        <span>
+                          <div class="col-md-2 col-sm-2">
+                          <label for="Select">Select</label>
+                          </div>
+                          <div class="col-md-8 col-sm-8 input-group">
+                          <select class="form-control selectpicker" title="Qualification..." name="user[qualification]" id="qualification" required="">
+                            <?php 
+                              foreach ($graduation_list as $key => $value) {
+                                $len = count($value); ?>
+                                <option value="<?php echo $key;?>"><?php echo $key;?></option>
+                                <?php
+                              }
+                            ?>
+                          </select>
+                          </div>
+                        </span>
+                      </div>
+                    </div>
+                  </div>                
                                          
                   <div class="row">
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <span>
-                          <div class="col-md-3 col-sm-3">
+                          <div class="col-md-2 col-sm-2">
                           <label for="Degree">Degree</label>
                           </div>
                           <div class="col-md-8 col-sm-8 input-group">
-                          <input type="text" class="form-control degree" id="degree" placeholder="Degree" maxlength="50" required />
+                          <input type="text" name="user[degree]" class="form-control" placeholder="Degree" maxlength="50" required />
                           </div>
                         </span>
                       </div>
@@ -143,7 +95,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <span>
-                          <div class="col-md-3 col-sm-3">
+                          <div class="col-md-2 col-sm-2">
                           <label for="Stream">Stream</label>
                           </div>
                           <div class="col-md-7 col-sm-7 input-group">
@@ -153,7 +105,7 @@
 
                                   <div class="col-lg-11">
                                     <div class="input-group exp-row">
-                                      <input type="text" class="form-control stream-text exp-stream"
+                                      <input type="text" class="form-control" name="user[stream][]" value=""
                                       placeholder="Stream" required/>
                                     </div>
                                   </div>
@@ -176,7 +128,7 @@
                                 </div>
                               </div>
 
-                              <input type="hidden" id="stream-data" name="user[stream]" />
+                              <!-- <input type="hidden" id="stream-data" name="user[meta][stream]" /> -->
                               <div class="clear"></div>
                             </div>
                           </div>
@@ -204,7 +156,7 @@
                     <div class="col-lg-12 col-md-12 col-sm-12">
                       <div class="form-group">
                         <span>
-                          <div class="col-md-3 col-sm-3">
+                          <div class="col-md-2 col-sm-2">
                           <label for="position">position</label>
                           </div>
                           <div class="col-md-7 col-sm-7 input-group">
@@ -215,7 +167,7 @@
 
                                   <div class="col-lg-11">
                                     <div class="input-group exp-row">
-                                      <input type="text" class="form-control position-text exp-position" placeholder="Position" value="<?php echo $post[$k]['position'];?>" required/>
+                                      <input type="text" class="form-control position-text exp-position" name="user[position][]" placeholder="Position" value="<?php echo $post[$k];?>" required/>
                                     </div>
                                   </div>
 
@@ -238,7 +190,7 @@
                                 </div>
                               </div>
 
-                              <input type="hidden" id="position-data" name="user[position]" />
+                              <input type="hidden" id="position-data" name="user[meta][position]" />
                               <div class="clear"></div>
                             </div>
                           </div>
