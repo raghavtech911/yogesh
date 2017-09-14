@@ -13,53 +13,11 @@
           if(isset($_POST['user'])){
             $status = $core->addGraduation($_POST['user']);
             if($status){
-              // echo '<script>alert("Data Added");</script>';
-
-              // echo "<pre>";
-              //   print_r($status);
-              // echo "</pre>";
+              echo '<script>alert("Data Added");</script>';
               echo $status;
-
-              // $ak = json_decode($status,true);
-// echo $status;
-              // echo "<pre>";
-              //   print_r($ak);
-              // echo "</pre>";
-
-
-
             }else{
               echo '<script>alert("Failed");</script>';
             }
-        // $stream = $_POST['stream'];
-        // // $stream = $stream['stream'];
-        // echo $stream . "<br>";
-
-        // $str2 = json_decode($stream);
-        // echo "<pre>";
-        //   print_r($str2);
-        // echo "</pre>";
-
-
-        // $newline = '[{"sir":["jk1","jk2","jk3"]}]';
-        // echo $stream. "<br>";
-        // echo "<br>".$newline. "<br>";
-
-        // $str = json_decode($stream,true);
-        // $str2 = json_decode($newline,true);
-
-        // $json = json_encode(array_merge(json_decode($stream, true),json_decode($newline, true)));
-
-        // echo $json;
-            
-        //     $str = json_encode($stream);
-        //     $str = json_decode($str,true);
-        // echo "<pre>";
-        //   print_r($str);
-        // echo "</pre>";
-        // echo "<pre>";
-        //   print_r($str2);
-        // echo "</pre>";
           }
         }
 
@@ -77,38 +35,6 @@
         $post = $core->position_view_data();
         $post = json_decode($post,true);
         $poslength = count($post);    
-
-
-        $glist = $core->graduation_test_List();
-        $glist_arr = json_decode($glist,true);
-        // $poslength = count($post); 
-
-        echo "<pre>";
-          print_r($glist_arr);
-        echo "</pre>";
-
-        // foreach ($glist_arr as $key => $value) {
-        //   echo $key ."<br>";
-
-        //   foreach ($value as $key1 => $value1) {
-        //     echo $key1 ."<br>";
-        //   }
-          // echo "<pre>";
-          //   print_r($value);
-          // echo "</pre>";
-        // }
-
-
-        // function find_key_value($array, $key, $val){
-        //   foreach ($array as $item)
-        //   {
-        //       if (is_array($item) && find_key_value($item, $key, $val)) return true;
-
-        //       if (isset($item[$key]) && $item[$key] == $val) return true;
-        //   }
-
-        //   return false;
-        // }
 
         ?>
         <div class="right_col" role="main">
