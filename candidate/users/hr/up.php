@@ -9,6 +9,8 @@
         exit();
       }
 
+      $tech_assign_name = $core->technical_assigned_name($val);
+
       $result1 = $core->technical_assign_fetch();
       if(!$result1){
         printf("Error: %s\n", mysqli_error($core->connection));
@@ -193,7 +195,7 @@
                 <ul class="repeater_container ">
                   <?php for($i=0; $i<$explen; $i++) { ?>
                   <li class="repeater input-group exp-row">  
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                         <div class="input-group exp-row">
                           <input type="text" class="form-control exp-text exp-company" id="exp-company" placeholder="Name of Company" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" disabled value="<?php echo $exparr[$i]['company']; ?>" /> 
                         </div>
@@ -205,10 +207,16 @@
                       </div>
                     </div>
 
-                    <div class="col-lg-2">
-                      <div class="input-group exp-row">
-                        <input type="number" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" id="exp-ym" placeholder="Experience(Years)" disabled value="<?php echo $exparr[$i]['ym']; ?>" />
-                      </div>
+                    <div class="col-lg-3">
+                      <div class="input-group">
+                      <input type="number" step="any" min="0" title="Please enter valid year! example: 1 or 1.5" disabled class="form-control exp-text exp-ym" placeholder="Experience" id="exp-ym" value="<?php echo $exparr[$i]['ym']; ?>"/>
+                      <span class="input-group-btn">
+                      <select class="form-control exp-exp exp-text" id="notice_period" disabled style="width: auto; padding-left: 5px;padding-right: 0px;">
+                        <option value="year" <?php if( $exparr[$i]['exp'] == 'year' ) { echo "selected='selected'"; }?>>Year</option>
+                        <option value="month" <?php if( $exparr[$i]['exp'] == 'month' ) { echo "selected='selected'"; }?>>Month</option>
+                      </select>
+                      </span>
+                      </div>  
                     </div>
 
                     <div class="col-sm-1" id="remove_li">
@@ -245,7 +253,7 @@
                 <ul class="repeater_container_fresher">
                   <?php for($j=0; $j<$fresherlen; $j++) { ?>
                   <li class="repeater_fresher input-group exp-row">
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                       <div class="input-group exp-row">
                         <input type="text" class="form-control fresher-text name-institute" id="name-institute" placeholder="Name of the institute" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" disabled value="<?php echo $fresherarr[$j]['institute']; ?>" />
                       </div>
@@ -257,7 +265,7 @@
                       </div>
                     </div>
 
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                       <div class="input-group exp-row">
                         <input type="number" title="Please enter a valid year!" class="form-control fresher-text passout-year" id="passout-year" placeholder="Pass out year" disabled value="<?php echo $fresherarr[$j]['passout']; ?>" />
                       </div>
@@ -292,7 +300,7 @@
             <!--Start Expected period-->
             <div class="">
               <div class="row form-group ">
-                <div class="col-md-4 col-md-offset-5">
+                <div class="col-md-4 col-md-offset-4">
                   <div class="input-group">
                     <span class="input-group-addon span-notice"><span>Notice</span></span>
                     <select class="form-control" name="user[meta][notice_period]" id="day_month" required disabled>
@@ -421,7 +429,7 @@
                   <div class="form-group">
                     <span>
                       <div class="col-md-7 col-sm-7">
-                      <label for="Current CTC">Current CTC</label>
+                      <label for="Current CTC">Current CTC (Per Annum)</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                       <input type="text" name="tech_can_currentctc" class="form-control" placeholder="Current CTC" maxlength="50" value="<?php echo $row['tech_can_currentctc'] ; ?>" required disabled/>
@@ -436,7 +444,7 @@
                   <div class="form-group">
                     <span>
                       <div class="col-md-7 col-sm-7">
-                      <label for="Expected CTC">Expected CTC</label>
+                      <label for="Expected CTC">Expected CTC (Per Annum)</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
                       <input type="text" name="tech_can_expectedctc" class="form-control" placeholder="Expected CTC" maxlength="50" value="<?php echo $row['tech_can_expectedctc'] ; ?>" required disabled/>
@@ -489,10 +497,25 @@
                   <div class="form-group">
                     <span>
                       <div class="col-md-7 col-sm-7">
+                      <label for="technical-comment">Technical Assigned</label>
+                      </div>
+                      <div class="col-md-3 col-sm-3 input-group">
+                      <input type="text" name="techview_update_comment" class="form-control" placeholder="" maxlength="50"  required value="<?php echo $tech_assign_name; ?>" disabled/>
+                      </div>
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="form-group">
+                    <span>
+                      <div class="col-md-7 col-sm-7">
                       <label for="technical-comment">Technical Comment</label>
                       </div>
                       <div class="col-md-5 col-sm-5 input-group">
-                      <input type="text" name="techview_update_comment" class="form-control" placeholder="Technical Comment" maxlength="50"  required value="<?php echo $row['tech_can_technical_comment']; ?>" disabled/>
+                      <input type="text" name="techview_update_comment" class="form-control" placeholder="" maxlength="50"  required value="<?php echo $row['tech_can_technical_comment']; ?>" disabled/>
                       </div>
                     </span>
                   </div>
@@ -525,7 +548,7 @@
                       <div class="col-md-5 col-sm-5 input-group">
                         <div class="select-control">
                         <select class="input-group form-control" id="technical_hr_assign" name="user[technical_hr_assign]" required>
-                         <option value="">Assign technical!</option>
+                         <option value="">Assign technical</option>
                         <?php 
                         while ($techlist = mysqli_fetch_array($result1, MYSQLI_ASSOC)){
                         $checked = ($row['tech_can_technical_assign'] == $techlist['tech_users_id']) ? 'selected' : '';?>
@@ -542,8 +565,7 @@
                     </span>
                   </div>
                 </div>
-              </div>  
-        
+              </div>       
             </div>
           </div>
           <!--End general information-->           
@@ -554,7 +576,7 @@
           <?php if($row['tech_can_status'] != 1) {?>
           <div class="form-group col-md-4 col-md-offset-8">
             <!-- <button type="submit" class="btn btn-block btn-primary" name="btn-submit">Edit Details</button> -->
-            <a href="edit_details.php?tech_can_id=<?php echo $val;?>"><button type="button" class="btn btn-block btn-primary" name="btn-sunmit">Edit Details?</button></a>
+            <a href="edit_details.php?tech_can_id=<?php echo $val;?>"><button type="button" class="btn btn-block btn-primary" name="btn-sunmit">Edit Details</button></a>
           </div>    
           <?php }?>  
       </form>

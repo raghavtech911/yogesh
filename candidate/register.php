@@ -422,7 +422,7 @@
                                 <div class="form-group">
                                   <span>
                                     <div class="col-md-7 col-sm-7">
-                                    <label for="Current CTC">Current CTC</label>
+                                    <label for="Current CTC">Current CTC (Per Annum)</label>
                                     </div>
                                     <div class="col-md-5 col-sm-5 input-group">
                                     <input type="text" name="user[meta][tech_can_currentctc]" class="form-control" id="current_ctc" placeholder="Current CTC" maxlength="50"  pattern="[0-9]{1,}" title="Digits only!"/>
@@ -437,7 +437,7 @@
                                 <div class="form-group">
                                   <span>
                                     <div class="col-md-7 col-sm-7">
-                                    <label for="Expected CTC">Expected CTC</label>
+                                    <label for="Expected CTC">Expected CTC (Per Annum)</label>
                                     </div>
                                     <div class="col-md-5 col-sm-5 input-group">
                                     <input type="text" name="user[meta][tech_can_expectedctc]" class="form-control" id="expected_ctc" placeholder="Expected CTC" maxlength="50"  pattern="[0-9]{1,}" title="Digits only!" />

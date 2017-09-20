@@ -192,7 +192,7 @@
                 <ul class="repeater_container ">
                   <?php for($i=0; $i<$explen; $i++) { ?>
                   <li class="repeater input-group exp-row">  
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                         <div class="input-group exp-row">
                           <input type="text" class="form-control exp-text exp-company" id="exp-company" placeholder="Name of Company" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" disabled value="<?php echo $exparr[$i]['company']; ?>" /> 
                         </div>
@@ -204,10 +204,16 @@
                       </div>
                     </div>
 
-                    <div class="col-lg-2">
-                      <div class="input-group exp-row">
-                        <input type="number" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" id="exp-ym" placeholder="Experience(Years)" disabled value="<?php echo $exparr[$i]['ym']; ?>" />
-                      </div>
+                    <div class="col-lg-3">
+                      <div class="input-group">
+                      <input type="number" step="any" min="0" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience" id="exp-ym" disabled value="<?php echo $exparr[$i]['ym']; ?>"/>
+                      <span class="input-group-btn">
+                      <select class="form-control exp-exp exp-text" id="notice_period" disabled style="width: auto; padding-left: 5px;padding-right: 0px;">
+                        <option value="year" <?php if( $exparr[$i]['exp'] == 'year' ) { echo "selected='selected'"; }?>>Year</option>
+                        <option value="month" <?php if( $exparr[$i]['exp'] == 'month' ) { echo "selected='selected'"; }?>>Month</option>
+                      </select>
+                      </span>
+                      </div>  
                     </div>
 
                     <div class="col-sm-1" id="remove_li">
@@ -244,7 +250,7 @@
                 <ul class="repeater_container ">
                   <?php for($i=0; $i<$explen; $i++) { ?>
                   <li class="repeater input-group exp-row">  
-                    <div class="col-lg-5">
+                    <div class="col-lg-4">
                         <div class="input-group exp-row">
                           <input type="text" class="form-control exp-text exp-company" id="exp-company" placeholder="Name of Company" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" disabled value="<?php echo $exparr[$i]['company']; ?>" /> 
                         </div>
@@ -256,7 +262,7 @@
                       </div>
                     </div>
 
-                    <div class="col-lg-2">
+                    <div class="col-lg-3">
                       <div class="input-group exp-row">
                         <input type="number" step="any" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" id="exp-ym" placeholder="Experience(Years)" disabled value="<?php echo $exparr[$i]['ym']; ?>" />
                       </div>
@@ -293,7 +299,7 @@
             <!--Start Expected period-->
             <div class="">
               <div class="row form-group ">
-                <div class="col-md-4 col-md-offset-5">
+                <div class="col-md-4 col-md-offset-4">
                   <div class="input-group">
                     <span class="input-group-addon span-notice"><span>Notice</span></span>
                     <select class="form-control" name="user[meta][notice_period]" id="day_month" required disabled>

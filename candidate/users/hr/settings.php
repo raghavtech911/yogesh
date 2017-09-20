@@ -34,12 +34,21 @@
 
         $post = $core->position_view_data();
         $post = json_decode($post,true);
+
         $poslength = count($post);    
+
+        $graduation_list = $core->graduation_List();
+        $graduation_list_length = count($graduation_list);  
+
+        foreach ($graduation_list as $key => $value){
+          $krr[] = $key;
+          $vrr[] = $value;  
+        }
 
         ?>
         <div class="right_col" role="main">
         <div class="container col-lg-9">
-          
+
             <div class="row">
               <div class="col-lg-12">         
                 <!--Start Graduation Details-->
@@ -75,12 +84,13 @@
                           <div class="col-md-7 col-sm-7 input-group">
                             <div class="row">
                               <ul class="repeater_stream_container exp-row">
+                            
                                 <li class="repeater_stream input-group exp-row" style="list-style-type: none;">
 
                                   <div class="col-lg-11">
                                     <div class="input-group exp-row">
                                       <input type="text" class="form-control stream-text exp-stream"
-                                      placeholder="Stream" required/>
+                                      placeholder="Stream"  required/>
                                     </div>
                                   </div>
 
@@ -92,6 +102,7 @@
                                     </div>
                                   </div>
                                 </li>
+                                
                               </ul>
 
                               <div class="col-sm-1 col-sm-offset-11" id="add_stream_li">

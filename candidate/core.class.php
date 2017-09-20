@@ -224,6 +224,24 @@
 			}
 		}
 
+		public function technical_assigned_name($val){
+			
+			$sq = "SELECT tech_can_technical_assign FROM tech_candidates WHERE tech_can_id = '$val'";
+			$res = mysqli_query($this->connection, $sq);
+			$na = mysqli_fetch_array($res, MYSQLI_ASSOC);
+     		$na = $na['tech_can_technical_assign'];
+
+			$sql1 = "SELECT tech_users_username FROM tech_users WHERE tech_users_id = '$na'";
+			$res1 = mysqli_query($this->connection, $sql1);
+			$res = mysqli_fetch_array($res1, MYSQLI_ASSOC);
+     		$tech_assign_name = $res['tech_users_username'];
+			if($tech_assign_name){
+				return $tech_assign_name;
+			}else{
+				return false;
+			}
+		}
+
 		public function addHrComment($data,$val){
 
 		    $technical_assign = $data['technical_hr_assign']; 

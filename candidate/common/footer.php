@@ -322,10 +322,12 @@
             var exp_company = $(this).find('.exp-company').val();
             var exp_desg = $(this).find('.exp-designation').val();
             var exp_ym = $(this).find('.exp-ym').val();
+            var exp_exp = $(this).find('.exp-exp').val();
             all_data_arr.push({
               'company': exp_company,
               'desg': exp_desg,
-              'ym': exp_ym
+              'ym': exp_ym,
+              'exp': exp_exp
             });
           });
           $("#exp-data").val(JSON.stringify(all_data_arr));
@@ -349,7 +351,7 @@
           }
         });
 
-        $(document).on("keyup", ".exp-text", function(){
+        $(document).on("keyup change focus", ".exp-text", function(){
           repeat_exp_data();
         });
         $(document).on("keyup", "#add-new-row", function(){
@@ -743,6 +745,32 @@
       });
     </script> -->
     <!--/Jquery Confirm alert-->
+
+
+    <!--Test-->
+    <script type="text/javascript">
+    function test(){
+      var test=document.getElementById( "test" ).value;
+      
+      if(test){
+        $.ajax({
+          type: 'post',
+          url: 'test.php',
+          data: {
+            test:test,
+          },
+          success: function (response) {
+            $( '#test_status' ).html(response);
+          }
+        });
+      }
+      else{
+        $( '#test_status' ).html("");
+        return false;
+      }
+    }      
+    </script>
+    <!--/Test-->
     <!--/my links-->
       </body>
 </html>
