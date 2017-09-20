@@ -197,7 +197,7 @@
                               <ul class="repeater_container">
                                 <li class="repeater input-group exp-row">
 
-                                  <div class="col-lg-5">
+                                  <div class="col-lg-4">
                                       <div class="input-group exp-row">
                                         <input type="text" class="form-control exp-text exp-company" placeholder="Name of Company" maxlength="50"  pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" id="exp-company"/> 
                                       </div>
@@ -209,10 +209,16 @@
                                     </div>
                                   </div>
 
-                                  <div class="col-lg-2">
-                                    <div class="input-group exp-row">
-                                      <input type="number" step="any" min="0" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience(Years)" id="exp-ym"/>
-                                    </div>
+                                  <div class="col-lg-3">
+                                    <div class="input-group">
+                                    <input type="number" step="any" min="0" title="Please enter valid year! example: 1 or 1.5" class="form-control exp-text exp-ym" placeholder="Experience" id="exp-ym"/>
+                                    <span class="input-group-btn">
+                                    <select class="form-control exp-exp exp-text" id="notice_period" style="width: auto; padding-left: 5px;padding-right: 0px;">
+                                      <option value="year" >Year</option>
+                                      <option value="month">Month</option>
+                                    </select>
+                                    </span>
+                                    </div>  
                                   </div>
 
                                   <div class="col-sm-1" id="remove_li">
@@ -247,7 +253,7 @@
                               <ui class="repeater_container_fresher" style="list-style-type:none;">
                                 <li class="repeater_fresher input-group exp-row">
                                   
-                                  <div class="col-lg-5">
+                                  <div class="col-lg-4">
                                     <div class="input-group exp-row">
                                       <input type="text" class="form-control fresher-text name-institute" placeholder="Name of the institute" maxlength="50" pattern="[a-zA-Z. ]{2,}" title="Alphabets only! Please enter more than two letters" id="name-institute"/>
                                     </div>
@@ -259,7 +265,7 @@
                                     </div>
                                   </div>
 
-                                  <div class="col-lg-2">
+                                  <div class="col-lg-3">
                                     <div class="input-group exp-row">
                                       <input type="number" min="0" title="Please enter a valid year!" class="form-control fresher-text passout-year" placeholder="Pass out year" id="passout-year"/>
                                     </div>
@@ -293,7 +299,7 @@
                           <!--Start Expected period-->
                           <div class="">
                             <div class="row form-group ">
-                              <div class="col-md-4 col-md-offset-5">
+                              <div class="col-md-4 col-md-offset-4">
                                 <div class="input-group">
                                   <span class="input-group-addon span-notice"><span>Notice</span></span>
                                   <select class="form-control" name="user[meta][notice_period]" id="day_month" required >
@@ -304,7 +310,7 @@
 
                                   <span class="input-group-btn">
                                   <select class="form-control" id="notice_period" name="user[meta][notice_type]" style="width: auto;">
-                                    <option value="day" >Day</option>
+                                    <option value="day">Day</option>
                                     <option value="month">Month</option>
                                   </select>
                                   </span>
